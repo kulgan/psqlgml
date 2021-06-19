@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "description": "{{ model|upper }} Datamodel GraphML schema",
+  "required": [
+    "nodes",
+    "edges"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    {% for label, props in schema | dictsort %}
+    "{{ label }}": {
+      "description": "{{ props.description | trim }}",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "const": "{{ label }}"
+        },
+        "node_id": {
+          "type": "string",
+          "description": "unique id of the node"
+        },
+        "acl": {
+           "type": "array",
+           "items": {
+              "type": "string"
+           }
+        },
+        "system_annotations": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "redacted": {
+                "type": "boolean"
+              }
+            }
+        },
+        {% for prop, info in props.properties | dictsort %}
+        "{{ prop }}": {
+          {% if info.type %}
+          "type": "{{ info.type[0] if info.type is iterable and (info.type is not string) else info.type }}",
+          {% endif %}
+          {% if info.enum %}
+          "enum": [
+            {% for enum in info.enum | sort %}
+            "{{ enum }}"{%+ if not loop.last +%},{%+ endif +%}
+            {% endfor %}
+          ],
+          {% endif %}
+          {% if info.default %}
+          "default": "{{ info.default|e }}",
+          {% endif %}
+          "description": "{{ info.description | trim }}"
+        }{%+ if not loop.last +%},{%+ endif +%}
+        {% endfor %}
+      }
+    },
+    {% endfor %}
+    "edge": {
+      "type": "object",
+      "required": [
+        "src",
+        "dst"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "src": {
+          "type": "string",
+          "description": "unique id for source node"
+        },
+        "dst": {
+          "type": "string",
+          "description": "unique id for destination node"
+        },
+        "tag": {
+          "type": "string",
+          "description": "Optional name for the edge. Its only for display purposes"
+        },
+        "label": {
+          "enum": [
+            {% for link in links | sort %}
+            "{{ link }}"{%+ if not loop.last +%},{%+ endif +%}
+            {% endfor %}
+          ]
+        }
+      }
+    }
+  },
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Supported schema"
+    },
+    "model": {
+      "enum": [
+        "GDC",
+        "GPAS"
+      ],
+      "default": "GDC"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description for the information defined"
+    },
+    "extends": {
+      "type": "string",
+      "description": "Relative address to another data files containing extra mappings"
+    },
+    "unique_field": {
+      "description": "Field denoting the unique identifier for each entry",
+      "enum": [
+        "node_id",
+        "submitter_id"
+      ],
+      "default": "submitter_id"
+    },
+    "summary": {
+      "type": "object",
+      "description": "Optional summary containing counts per node type",
+      "additionalProperties": false,
+      "properties": {
+        {% for label, _ in schema | dictsort %}
+        "{{ label }}": {
+          "type": "integer"
+         }{%+ if not loop.last +%},{%+ endif +%}
+       {% endfor %}
+      }
+    },
+    "edges": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/edge"
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+         {% for node, _ in schema | dictsort %}
+          {
+            "$ref": "#/definitions/{{ node }}"
+          }{%+ if not loop.last +%},{%+ endif +%}
+         {% endfor %}
+        ]
+      }
+    }
+  }
+}

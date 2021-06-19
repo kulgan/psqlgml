@@ -8,7 +8,7 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name="pgraphml",
+    name="psqlml",
     author="Rowland Ogwara",
     author_email="rogwara@uchicago.edu",
     keywords="GraphML, psqlgraph, JSON schema",
@@ -24,6 +24,10 @@ setup(
     python_requires=">=3.8, <4",
     setup_requires=["setuptools_scm"],
     install_requires=[
+        "click",
+        "Jinja2",
+        "jsonschema",
+        "PyYaml",
         "gdcdictionary @ git+https://github.com/NCI-GDC/gdcdictionary.git@2.4.0#egg=gdcdictionary",
         "biodictionary @ git+ssh://git@github.com/NCI-GDC/biodictionary.git@0.4.0#egg=biodictionary",
     ],
