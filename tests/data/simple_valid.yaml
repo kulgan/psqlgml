@@ -1,0 +1,9 @@
+$schema: gpas
+nodes:
+  - label: submitted_aligned_reads
+    submitter_id: sar_1
+  - label: read_group
+    submitter_id: rg_1
+edges:
+  - src: sar_1
+    dst: rg_1

@@ -1,0 +1,15 @@
+language: python
+dist: bionic
+
+stages:
+  - test
+
+python:
+  - 3.8
+  - 3.9
+
+install:
+  - pip install tox-travis
+
+script:
+  - tox

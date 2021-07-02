@@ -1,4 +1,4 @@
-$schema: http://json-schema.org/draft-07/schema#
+$schema: http://json-schema.org/draft-04/schema#
 additionalProperties: false
 definitions:
   aligned_reads:
@@ -4876,7 +4876,7 @@ properties:
   edges:
     items:
       $ref: '#/definitions/edge'
-    minItems: 1
+    minItems: 0
     type: array
   extends:
     description: Relative address to another data files containing extra mappings

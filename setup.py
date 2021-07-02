@@ -8,7 +8,7 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name="psqlml",
+    name="psqlgml",
     author="Rowland Ogwara",
     author_email="rogwara@uchicago.edu",
     keywords="GraphML, psqlgraph, JSON schema",
@@ -46,4 +46,5 @@ setup(
             "sphinxcontrib-napoleon",
         ]
     },
+    entry_points={"console_scripts": ["psqlgml = psqlgml.cli:main"]},
 )

@@ -1,0 +1,25 @@
+{
+  "extends": "simple_valid.yaml",
+  "nodes": [
+    {
+      "label": "aligned_reads",
+      "submitter_id": "ar_1"
+    },
+    {
+      "label": "harmonization_workflow",
+      "submitter_id": "hw_1"
+    }
+  ],
+  "edges": [
+    {
+      "src": "ar_1",
+      "dst": "hw_1",
+      "label": "harmonization_workflows"
+    },
+    {
+      "src": "hw_1",
+      "dst": "sar_1",
+      "label": "submitted_aligned_reads_files"
+    }
+  ]
+}

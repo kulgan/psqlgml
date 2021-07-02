@@ -1,0 +1,14 @@
+extends: simple_valid.yaml
+nodes:
+  - label: read_group
+    submitter_id: rg_1
+    tissue_type: Unknown
+  - label: case
+    submitter_id: c_1
+    primary_site: Known
+edges:
+  - src: rg_1
+    dst: c_1
+    label: gene_expressions
+  - src: rg_2
+    dst: c_2
