@@ -25,6 +25,7 @@ setup(
     setup_requires=["setuptools_scm"],
     install_requires=[
         "click",
+        "graphviz",
         "Jinja2",
         "jsonschema",
         "PyYaml",
