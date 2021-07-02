@@ -2,13 +2,13 @@ import logging
 import sys
 from dataclasses import dataclass
 from logging.config import dictConfig
-from typing import Literal
 
 import click
 import yaml
 from pkg_resources import get_distribution, resource_filename
 
 import psqlgml
+from psqlgml.typings import Literal
 
 VERSION = get_distribution(psqlgml.__name__).version
 logger: logging.Logger

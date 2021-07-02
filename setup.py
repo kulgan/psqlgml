@@ -21,7 +21,7 @@ setup(
     packages=find_packages(where="src"),
     zip_safe=True,
     include_package_data=True,
-    python_requires=">=3.8, <4",
+    python_requires=">=3.6, <4",
     setup_requires=["setuptools_scm"],
     install_requires=[
         "click",
@@ -29,6 +29,7 @@ setup(
         "Jinja2",
         "jsonschema",
         "PyYaml",
+        "typing-extensions",
         "gdcdictionary @ git+https://github.com/NCI-GDC/gdcdictionary.git@2.4.0#egg=gdcdictionary",
         "biodictionary @ git+ssh://git@github.com/NCI-GDC/biodictionary.git@0.4.0#egg=biodictionary",
     ],

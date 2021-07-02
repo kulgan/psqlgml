@@ -1,5 +1,5 @@
 import json
-from typing import Dict, List, Literal, Protocol, Set
+from typing import Dict, List, Set
 
 import pkg_resources
 from jsonschema import Draft7Validator
@@ -15,6 +15,7 @@ from psqlgml.models import (
     UniqueFieldType,
 )
 from psqlgml.resources import load_all
+from psqlgml.typings import Literal, Protocol
 
 SCHEMA: Dict[DictionaryType, Draft7Validator] = {}
 

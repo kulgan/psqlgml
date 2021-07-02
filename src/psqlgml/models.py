@@ -1,9 +1,11 @@
 import enum
 from dataclasses import dataclass
-from typing import Any, Dict, Final, List, Literal, Optional, Set, TypedDict
+from typing import Any, Dict, List, Optional, Set
 
 from biodictionary import biodictionary
 from gdcdictionary import gdcdictionary
+
+from psqlgml.typings import Final, Literal, TypedDict
 
 NODE_ID: Final = "node_id"
 DictionaryType = Literal["GDC", "GPAS"]
