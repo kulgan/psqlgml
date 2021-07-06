@@ -29,6 +29,7 @@ def loads(file_name: str) -> SchemaData:
 
         if extension in ["yml", "yaml"]:
             return yaml.safe_load(r)
+    return SchemaData()
 
 
 def merge(resource_folder: str, resource_name: str) -> SchemaData:
@@ -46,12 +47,12 @@ def merge(resource_folder: str, resource_name: str) -> SchemaData:
     rss["edges"] += extended["edges"]
 
     if "summary" not in rss:
-        rss["summary"] = extended.get("summary")
+        rss["summary"] = extended.get("summary", {})
         return rss
 
     for summary in extended.get("summary", {}):
-        if summary in rss.get("summary"):
-            rss["summary"][summary] += extended["summary"]
+        if summary in rss["summary"]:
+            rss["summary"][summary] += extended["summary"][summary]
         else:
             rss["summary"][summary] = extended["summary"][summary]
 

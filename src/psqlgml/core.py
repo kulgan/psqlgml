@@ -1,12 +1,14 @@
 import json
 import logging
 import os
+from typing import Optional
 
 import jinja2 as j
 import yaml
 
-from psqlgml.models import DictionaryType, SchemaData, SchemaType
+from psqlgml.models import SchemaData, SchemaType
 from psqlgml.resources import merge
+from psqlgml.typings import DictionaryType, ValidatorType
 from psqlgml.validators import ValidatorFactory
 
 logger = logging.getLogger(__name__)
@@ -37,7 +39,7 @@ def generate_schema(
     return output_name
 
 
-def write_template(rendered_template: str, file_name: str):
+def write_template(rendered_template: str, file_name: str) -> None:
     loaded = json.loads(rendered_template)
 
     # dump yaml
@@ -51,8 +53,19 @@ def write_template(rendered_template: str, file_name: str):
         json.dump(loaded, d, indent=2)
 
 
-def validate(data_file: str, dictionary: DictionaryType, validators: str):
-    vf = ValidatorFactory()
+def validate(
+    data_dir: str,
+    data_file: str,
+    dictionary: DictionaryType,
+    validator: ValidatorType = "ALL",
+) -> None:
+    register_defaults = True if validator == "ALL" else False
+    vf = ValidatorFactory(data_dir=data_dir, register_defaults=register_defaults)
+
+    if not register_defaults:
+        vf.register_validator_type(validator)
+
+    vf.validate(data_file, dictionary)
 
 
 def load_psqml(
@@ -64,11 +77,3 @@ def load_psqml(
     if not violations:
         return merge(resource_dir, file_name)
     raise ValueError("Invalid data")
-
-
-if __name__ == "__main__":
-    # generate_schema("schema/0.1.0", SchemaType.GPAS)
-    sample = "versioning/gpas_rna_seq.yaml"
-    rss_dir = "/home/rogwara/git/graphmanager/tests/data/exports"
-
-    load_psqml(rss_dir, sample, "GPAS")

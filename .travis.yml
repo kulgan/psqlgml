@@ -1,17 +1,24 @@
 language: python
 dist: bionic
+cache:
+  - pip
 
-stages:
-  - test
-
-python:
-  - 3.6
-  - 3.7
-  - 3.8
-  - 3.9
-
-install:
-  - pip install tox-travis
-
-script:
-  - tox
+jobs:
+  fast_finish: true
+  include:
+    - name: static
+      python: 3.6
+      install:
+        - pip install tox-travis
+      script:
+        - tox -e static
+    - name: test
+      python:
+        - 3.6
+        - 3.7
+        - 3.8
+        - 3.9
+      install:
+        - pip install tox-travis
+      script:
+        - tox

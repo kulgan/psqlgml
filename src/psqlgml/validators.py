@@ -1,21 +1,18 @@
 import json
-from typing import Dict, List, Set
+from typing import Dict, List, Set, cast
 
 import pkg_resources
 from jsonschema import Draft7Validator
 
-from psqlgml.models import (
-    Association,
-    DictionaryType,
-    GdcSchema,
-    Link,
-    SchemaData,
-    SchemaType,
-    SchemaViolation,
-    UniqueFieldType,
-)
+from psqlgml.models import SchemaData, SchemaType, SchemaViolation
 from psqlgml.resources import load_all
-from psqlgml.typings import Literal, Protocol
+from psqlgml.typings import (
+    DictionaryType,
+    Literal,
+    Protocol,
+    UniqueFieldType,
+    ValidatorType,
+)
 
 SCHEMA: Dict[DictionaryType, Draft7Validator] = {}
 
@@ -68,8 +65,10 @@ def undefined_link_validator(
         entries: Set[str] = {n[unique_field] for n in nodes}
 
         sub_violations: Set[SchemaViolation] = set()
+
         for index, edge in enumerate(edges):
-            for key in ["src", "dst"]:  # type: Literal["src", "dst"]
+            for key in ["src", "dst"]:
+                key = cast(Literal["src", "dst"], key)
                 if edge[key] in entries:
                     continue
 
@@ -135,18 +134,23 @@ def association_validator(
 
 
 class ValidatorFactory:
-    def __init__(self, resource_dir: str, register_defaults: bool = False):
+    def __init__(self, data_dir: str, register_defaults: bool = False):
 
-        self.resource_dir = resource_dir
+        self.data_dir = data_dir
         self.validators: List[Validator] = []
 
         if register_defaults:
             self.__register_defaults()
 
-    def register_validator(self, validator: Validator):
+    def register_validator(self, validator: Validator) -> None:
         self.validators.append(validator)
 
-    def __register_defaults(self):
+    def register_validator_type(self, validator_type: ValidatorType) -> None:
+        validators = VALIDATORS[validator_type]
+        for validator in validators:
+            self.register_validator(validator)
+
+    def __register_defaults(self) -> None:
         self.register_validator(schema_validator)
         self.register_validator(duplicate_definition_validator)
         self.register_validator(undefined_link_validator)
@@ -155,7 +159,7 @@ class ValidatorFactory:
     def validate(
         self, resource_name: str, resource_type: DictionaryType = "GPAS"
     ) -> Dict[str, Set[SchemaViolation]]:
-        payload = load_all(self.resource_dir, resource_name)
+        payload = load_all(self.data_dir, resource_name)
 
         violations: Dict[str, Set[SchemaViolation]] = {}
 
@@ -190,17 +194,18 @@ def validate_schema(
 
 
 def schema_validator(
-    obj: Dict[str, SchemaData], schema_type: DictionaryType = "GPAS"
+    payload: Dict[str, SchemaData], schema_type: DictionaryType = "GPAS"
 ) -> Dict[str, Set[SchemaViolation]]:
     violations: Dict[str, Set[SchemaViolation]] = {}
 
-    for resource, schema_data in obj.items():
+    for resource, schema_data in payload.items():
         schema_violations = validate_schema(schema_data, schema_type)
         violations[resource] = schema_violations
     return violations
 
 
-VALIDATORS: Dict[str, List[Validator]] = {
+VALIDATORS: Dict[ValidatorType, List[Validator]] = {
+    "ALL": [],
     "SCHEMA": [schema_validator],
     "DATA": [association_validator, undefined_link_validator, duplicate_definition_validator],
 }

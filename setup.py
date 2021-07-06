@@ -1,11 +1,31 @@
+import sys
 from os import path
 
 from setuptools import find_packages, setup
+
+if sys.version_info < (3, 6, 0):
+    sys.stderr.write("ERROR: You need Python 3.6 or later to use mypy.\n")
+    exit(1)
+
 
 here = path.abspath(path.dirname(__file__))
 
 with open(path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
+
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Database",
+]
+
 
 setup(
     name="psqlgml",
@@ -19,17 +39,26 @@ setup(
     description="PSQL GraphML generator",
     package_dir={"": "src"},
     packages=find_packages(where="src"),
+    package_data={
+        "psqlgml": [
+            "py.typed",
+            "schema/*.json",
+            "schema/*.yaml",
+        ]
+    },
+    classifiers=classifiers,
     zip_safe=True,
     include_package_data=True,
-    python_requires=">=3.6, <4",
+    python_requires=">=3.6",
     setup_requires=["setuptools_scm"],
     install_requires=[
+        "attrs",
         "click",
         "graphviz",
         "Jinja2",
         "jsonschema",
         "PyYaml",
-        "typing-extensions",
+        "typing-extensions; python_version < '3.8'",
         "gdcdictionary @ git+https://github.com/NCI-GDC/gdcdictionary.git@2.4.0#egg=gdcdictionary",
         "biodictionary @ git+ssh://git@github.com/NCI-GDC/biodictionary.git@0.4.0#egg=biodictionary",
     ],
@@ -38,6 +67,7 @@ setup(
             "black",
             "coverage[toml]",
             "flake8",
+            "mypy",
             "pre-commit",
             "pytest",
             "pytest-cov",
