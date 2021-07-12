@@ -1,7 +1,6 @@
 import logging
 import sys
 from logging.config import dictConfig
-from typing import Optional
 
 import attr
 import click
@@ -9,7 +8,7 @@ import yaml
 from pkg_resources import get_distribution, resource_filename
 
 import psqlgml
-from psqlgml.typings import DictionaryType, Literal, ValidatorType
+from psqlgml.typings import DictionaryType, RenderFormat, ValidatorType
 
 VERSION = get_distribution(psqlgml.__name__).version
 logger: logging.Logger
@@ -22,15 +21,14 @@ class LoggingConfig:
 
 @click.group()
 @click.version_option(VERSION)
-def main() -> None:
+def app() -> None:
     """psqlgml script for generating, validating and viewing graph data"""
     global logger
 
     configure_logger(LoggingConfig(level="DEBUG"))
-    logger = logging.getLogger("oshoo")
+    logger = logging.getLogger(__name__)
 
 
-@click.command(name="generate")
 @click.option(
     "-d",
     "--dictionary",
@@ -45,9 +43,11 @@ def main() -> None:
     required=False,
     help="Output directory to store generated schema",
 )
+@app.command(name="generate")
 def schema_gen(dictionary: DictionaryType, output_dir: str) -> None:
     """Generate schema based on currently installed dictionaries"""
-    logging.debug(f"Generating psqlgml schema for {dictionary} Dictionary")
+    global logger
+    logger.debug(f"Generating psqlgml schema for {dictionary} Dictionary")
 
     from psqlgml.core import generate_schema
 
@@ -56,7 +56,6 @@ def schema_gen(dictionary: DictionaryType, output_dir: str) -> None:
     logging.info(f"schema generation completed successfully: {schema_file}")
 
 
-@click.command(name="validate")
 @click.option(
     "-d",
     "--dictionary",
@@ -73,21 +72,21 @@ def schema_gen(dictionary: DictionaryType, output_dir: str) -> None:
     help="Dictionary schema to use for validation",
 )
 @click.option("--data-dir", type=click.Path(exists=True))
-@click.option(
-    "-f", "--data-file", type=click.Path(exists=True), required=True, help="The file to validate"
-)
+@click.option("-f", "--data-file", type=str, required=True, help="The file to validate")
+@app.command(name="validate")
 def validate_file(
     data_file: str,
     dictionary: DictionaryType,
     data_dir: str,
     validator: ValidatorType,
 ) -> None:
+    global logger
+    logger.debug(f"running {validator} validators for {data_dir}/{data_file}")
     from psqlgml.core import validate
 
     validate(data_dir=data_dir, data_file=data_file, dictionary=dictionary, validator=validator)
 
 
-@click.command(name="visualize")
 @click.option(
     "-o",
     "--output-dir",
@@ -97,13 +96,23 @@ def validate_file(
     help="Output directory to store generated image file",
 )
 @click.option(
-    "--data-dir", type=click.Path(exists=True), help="Base directory to look up data files"
+    "--output-format",
+    type=click.Choice(["jpg", "pdf", "png"]),
+    required=False,
+    default="png",
+    help="Generated image formal",
+)
+@click.option(
+    "-d", "--data-dir", type=click.Path(exists=True), help="Base directory to look up data files"
 )
 @click.option("-f", "--data-file", type=str, required=True, help="The file to visualize")
-def visualize_data(output_dir: str, data_dir: str, data_file: str) -> None:
+@app.command(name="visualize")
+def visualize_data(
+    output_dir: str, data_dir: str, data_file: str, output_format: RenderFormat
+) -> None:
     from psqlgml import visualize
 
-    visualize.visualize_graph(data_dir, data_file, output_dir)
+    visualize.visualize_graph(data_dir, data_file, output_dir, output_format)
 
 
 def configure_logger(cfg: LoggingConfig) -> None:
@@ -135,9 +144,5 @@ def configure_logger(cfg: LoggingConfig) -> None:
     dictConfig(lcfg)
 
 
-main.add_command(schema_gen)
-main.add_command(visualize_data)
-main.add_command(validate_file)
-
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    app(sys.argv[1:])

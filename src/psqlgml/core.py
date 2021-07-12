@@ -1,8 +1,8 @@
 import json
 import logging
 import os
-from typing import Optional
 
+import colored
 import jinja2 as j
 import yaml
 
@@ -65,7 +65,17 @@ def validate(
     if not register_defaults:
         vf.register_validator_type(validator)
 
-    vf.validate(data_file, dictionary)
+    violations = vf.validate(data_file, dictionary)
+    for resource_file, sub_violations in violations.items():
+        clr = "red" if sub_violations else "green"
+        print(colored.stylize(f"{resource_file}: {dictionary}", colored.fg(clr)))
+
+        for vio in sub_violations:
+            error_color = "red" if vio.violation_type == "error" else "yellow"
+            print(
+                colored.stylize(f"\t{vio.name} - {vio.path}:", colored.fg(error_color)),
+                colored.stylize(f"{vio.message}", colored.fg("grey_50")),
+            )
 
 
 def load_psqml(

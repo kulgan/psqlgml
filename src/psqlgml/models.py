@@ -1,11 +1,12 @@
 import enum
+from functools import lru_cache
 from typing import Any, Dict, List, Set, cast
 
 import attr
 from biodictionary import biodictionary
 from gdcdictionary import gdcdictionary
 
-from psqlgml.typings import DictionaryType, Literal, TypedDict, UniqueFieldType
+from psqlgml.typings import Literal, TypedDict, UniqueFieldType
 
 
 class Link(TypedDict):
@@ -55,14 +56,6 @@ class SchemaData(TypedDict, total=False):
 
 
 @attr.s(frozen=True, auto_attribs=True)
-class SchemaViolation:
-    path: str
-    message: str
-    schema_type: DictionaryType
-    violation_type: Literal["error", "warning"] = "error"
-
-
-@attr.s(frozen=True, auto_attribs=True)
 class Association:
     src: str
     dst: str
@@ -75,10 +68,10 @@ def extract_association(src: str, link: SubGroupedLink) -> Set[Association]:
 
     while links:
         current = links.pop()
-        if "name" in link:
-            dst = link["target_type"]
-            label = link["name"]
-            backref = link["backref"]
+        if "name" in current:
+            dst = current["target_type"]
+            label = current["name"]
+            backref = current["backref"]
             associations.add(Association(src, dst, label))
             associations.add(Association(dst, src, backref))
         if "subgroup" in current:
@@ -101,10 +94,14 @@ class SchemaType(enum.Enum):
         return all_links
 
     def associations(self, label: str) -> Set[Association]:
-        label_schema = self.value[label]
-        associations = set()
-        for link in label_schema.get("links", []):
-            associations.update(extract_association(label, link))
+        return {a for a in self.all_associations() if a.src == label}
+
+    @lru_cache(maxsize=1)
+    def all_associations(self) -> Set[Association]:
+        associations: Set[Association] = set()
+        for label, label_schema in self.value.items():
+            for link in label_schema.get("links", []):
+                associations.update(extract_association(label, link))
         return associations
 
     @property

@@ -14,3 +14,4 @@ NODE_ID: Final = "node_id"
 DictionaryType = Literal["GDC", "GPAS"]
 UniqueFieldType = Literal["node_id", "submitter_id"]
 ValidatorType = Literal["ALL", "DATA", "SCHEMA"]
+RenderFormat = Literal["jpg", "pdf", "png"]

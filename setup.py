@@ -10,7 +10,7 @@ if sys.version_info < (3, 6, 0):
 
 here = path.abspath(path.dirname(__file__))
 
-with open(path.join(here, "README.md"), encoding="utf-8") as f:
+with open(path.join(here, "README.rst"), encoding="utf-8") as f:
     long_description = f.read()
 
 
@@ -33,7 +33,7 @@ setup(
     author_email="rogwara@uchicago.edu",
     keywords="GraphML, psqlgraph, JSON schema",
     long_description=long_description,
-    long_description_content_type="text/markdown",
+    long_description_content_type="text/x-rst",
     license="Apache 2.0",
     url="",
     description="PSQL GraphML generator",
@@ -54,6 +54,7 @@ setup(
     install_requires=[
         "attrs",
         "click",
+        "colored",
         "graphviz",
         "Jinja2",
         "jsonschema",
@@ -77,5 +78,5 @@ setup(
             "sphinxcontrib-napoleon",
         ]
     },
-    entry_points={"console_scripts": ["psqlgml = psqlgml.cli:main"]},
+    entry_points={"console_scripts": ["psqlgml = psqlgml.cli:app"]},
 )
