@@ -1,0 +1,99 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+
+id: project
+title: Project
+type: object
+namespace: https://gdc.cancer.gov
+category: administrative
+description: >-
+  Any specifically defined piece of work that is undertaken or attempted to meet a
+  single requirement. (NCIt C47885)
+additionalProperties: false
+submittable: false
+downloadable: false
+previous_version_downloadable: false
+
+systemProperties:
+  - id
+  - state
+  - released
+  - releasable
+  - intended_release_date
+
+links:
+  - name: programs
+    backref: projects
+    label: member_of
+    target_type: program
+    multiplicity: many_to_one
+    required: true
+
+required:
+  - code
+  - name
+  - programs
+
+uniqueKeys:
+  - [id]
+  - [code]
+
+properties:
+
+  type:
+    type: string
+
+  id:
+    $ref:
+      - "_definitions.yaml#/uuid"
+    description: >-
+      UUID for the project
+  code:
+    description: >-
+      Project code
+    type: string
+
+  disease_type:
+    description: >-
+      Full name for the project
+    type: string
+
+  intended_release_date:
+    $ref:
+      - "_definitions.yaml#/datetime"
+    description: >-
+      Tracks a Project's intended release date.
+
+  name:
+    description: >-
+      Display name for the project
+    type: string
+
+  state:
+    description: >-
+      The possible states a project can be in.  All but `open` are equivalent to some
+      type of locked state.
+    default: open
+    enum:
+      - open
+      - review
+      - submitted
+      - processing
+      - processed
+      - closed
+      - legacy
+
+  release_requested:
+    description: >-
+      User requests that the GDC release the project. Release can only be requested
+      if the project is releasable.
+    type: boolean
+    default: false
+
+  releasable:
+    description: >-
+      A project can only be released by the user when `releasable` is true.
+    type: boolean
+    default: false
+
+  programs:
+    $ref: "_definitions.yaml#/to_one"

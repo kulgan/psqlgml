@@ -12,7 +12,7 @@ def test_merge_resource(data_dir):
     assert "extends" not in merged
 
     nodes = merged["nodes"]
-    assert len(nodes) == 4
+    assert len(nodes) == 5
 
     edges = merged["edges"]
     assert len(edges) == 3

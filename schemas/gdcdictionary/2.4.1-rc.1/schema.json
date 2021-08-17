@@ -1,7 +1,9 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "description": "GDC Datamodel GraphML schema",
+  "description": "PsqlGraph datamodel GraphML schema",
+  "url": "https://github.com/NCI-GDC/gdcdictionary.git",
+  "version": "2.4.1-rc.1",
   "required": [
     "nodes",
     "edges"
@@ -30,7 +32,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -167,7 +186,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -400,7 +436,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -525,7 +578,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -609,7 +679,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -643,7 +730,9 @@
           "description": "A project-specific identifier for a node. This property is the calling card/nickname/alias for a unit of submission. It can be used in place of the uuid for identifying or recalling a node."
         },
         "type": {
-          "type": "string",
+          "enum": [
+            "alignment_workflow"
+          ],
           "description": ""
         },
         "updated_datetime": {
@@ -704,7 +793,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -855,7 +961,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -984,7 +1107,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -1143,7 +1283,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -1281,7 +1438,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -1575,7 +1749,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -1704,7 +1895,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -1835,7 +2043,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -2076,7 +2301,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -2132,7 +2374,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -2245,7 +2504,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -2374,7 +2650,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -2520,7 +2813,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -2601,7 +2911,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -2745,7 +3072,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -2829,7 +3173,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -2869,7 +3230,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -2935,7 +3313,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -2978,7 +3373,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -3018,7 +3430,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -3427,7 +3856,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -3916,6 +4362,10 @@
         },
         "days_to_recurrence": {
           "description": "Number of days between the date used for index and the date the patient's disease recurred."
+        },
+        "diagnosis_is_primary_disease": {
+          "type": "boolean",
+          "description": "Indicates whether this specific diagnosis represents the disease that was the primary focus of the study. Additionally, this diagnosis is reflected at the  case level, which is captured using the case.disease_type property."
         },
         "eln_risk_classification": {
           "enum": [
@@ -9143,7 +9593,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -9268,7 +9735,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -9308,7 +9792,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -9627,7 +10128,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -9709,7 +10227,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -9976,7 +10511,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -10123,7 +10675,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -10250,7 +10819,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -12333,7 +12919,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -12468,7 +13071,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -12556,7 +13176,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -12641,7 +13278,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -12798,7 +13452,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -12938,7 +13609,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -13019,7 +13707,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -13156,7 +13861,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -13237,7 +13959,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -13367,7 +14106,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -13448,7 +14204,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -15342,15 +16115,18 @@
         },
         "test_units": {
           "enum": [
-            "count x10^9 cells/L",
+            "count x10^9/L",
             "g/dL",
             "g/L",
             "mcg/mL",
             "mg/dL",
             "mg/L",
+            "mm^2",
             "mmol/L",
             "mU/mol Hb",
+            "ng/mL",
             "Not Reported",
+            "percent",
             "U/g Hb",
             "U/L",
             "U/mL",
@@ -15449,14 +16225,77 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
         "additional_pathology_findings": {
           "enum": [
-            "Pleurodesis, NOS",
-            "Pleurodesis, Talc"
+            "Adenomyosis",
+            "Asbestos bodies",
+            "Atrophic endometrium",
+            "Atypical hyperplasia/Endometrial intraepithelial neoplasia (EIN)",
+            "Autoimmune atrophic chronic gastritis",
+            "Benign endocervical polyp",
+            "Bilateral ovaries with endometriotic cyst and surface adhesions",
+            "Carcinoma in situ",
+            "Cirrhosis",
+            "Clostridioides difficile (c. diff)",
+            "Colonization; bacterial",
+            "Colonization; fungal",
+            "Cyst(s)",
+            "Diffuse and early nodular diabetic glomerulosclerosis",
+            "Dysplasia; high grade",
+            "Dysplasia; low grade",
+            "Endometrial polyp",
+            "Endometriosis",
+            "Endometroid carcinoma with local mucinous differentiation",
+            "Endosalpingiosis",
+            "Epithelial dysplasia",
+            "Epithelial hyperplasia",
+            "Gallbladder adenomyomatosis",
+            "Glomerular disease",
+            "Hyperkeratosis",
+            "Inflammation",
+            "Intestinal metaplasia",
+            "Keratinizing dysplasia; mild",
+            "Keratinizing dysplasia; moderate",
+            "Keratinizing dysplasia; severe (carcinoma in situ)",
+            "Leiomyoma",
+            "Leiomyomata w/ degenerative changes",
+            "Nonkeratinizing dysplasia; mild",
+            "Nonkeratinizing dysplasia; moderate",
+            "Nonkeratinizing dysplasia; severe (carcinoma in situ)",
+            "Other",
+            "PD-L1 CPS (223C LDT) - 20%",
+            "Platinum-resistant",
+            "Pleural plaque",
+            "Pulmonary interstitial fibrosis",
+            "Sialadenitis",
+            "Sinonasal papilloma",
+            "Squamous metaplasia",
+            "Squamous papilloma; solitary",
+            "Squamous papillomatosis",
+            "Tubular (papillary) adenoma(s)",
+            "Tumor has rough spikey edges",
+            "Tumor-associated lymphoid proliferation"
           ],
           "description": "A section header that includes additional pathologic findings."
         },
@@ -15852,7 +16691,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -15972,7 +16828,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -16012,7 +16885,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -16092,7 +16982,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -16136,7 +17043,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -16244,7 +17168,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -16379,7 +17320,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -16436,7 +17394,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -16593,7 +17568,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -16959,7 +17951,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -17182,7 +18191,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -17285,7 +18311,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -17327,7 +18370,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -17451,7 +18511,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -18268,7 +19345,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -18396,7 +19490,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -18536,7 +19647,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -18674,7 +19802,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -18827,7 +19972,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -18974,7 +20136,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -19066,7 +20245,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -19154,7 +20350,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -19239,7 +20452,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -19327,7 +20557,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -19454,7 +20701,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -19539,7 +20803,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -19681,7 +20962,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -19824,7 +21122,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -19933,7 +21248,9 @@
           "description": "A project-specific identifier for a node. This property is the calling card/nickname/alias for a unit of submission. It can be used in place of the uuid for identifying or recalling a node."
         },
         "type": {
-          "type": "string",
+          "enum": [
+            "submitted_genomic_profile"
+          ],
           "description": ""
         },
         "updated_datetime": {
@@ -19963,7 +21280,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -20095,7 +21429,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -20228,7 +21579,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -20354,7 +21722,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -20501,7 +21886,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -20618,7 +22020,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -20670,7 +22089,24 @@
           "additionalProperties": true,
           "properties": {
             "redacted": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "GDC redacted node"
+            },
+            "release_blocked": {
+              "type": "boolean",
+              "description": "GDC release blocked node"
+            },
+            "tag": {
+              "type": "string",
+              "description": "Tag denoting different versions of anode"
+            },
+            "ver": {
+              "type": "number",
+              "description": "node's version number"
+            },
+            "latest": {
+              "type": "boolean",
+              "description": "True if this is the latest version of this node"
             }
           }
         },
@@ -25675,6 +27111,8 @@
             "Other",
             "Pharmaceutical Therapy, NOS",
             "Pleurodesis",
+            "Pleurodesis, NOS",
+            "Pleurodesis, Talc",
             "Radiation Therapy, NOS",
             "Radiation, 2D Conventional",
             "Radiation, 3D Conformal",
@@ -25842,13 +27280,6 @@
     "$schema": {
       "type": "string",
       "description": "Supported schema"
-    },
-    "model": {
-      "enum": [
-        "GDC",
-        "GPAS"
-      ],
-      "default": "GDC"
     },
     "description": {
       "type": "string",

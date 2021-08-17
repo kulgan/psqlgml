@@ -1,0 +1,14 @@
+unique_field: node_id
+extends: simple_valid.json
+nodes:
+  - label: project
+    node_id: pr_3
+  - label: case
+    node_id: c_4
+edges:
+    - src: p_1
+      dst: pr_3
+      label: cases
+    - src: p_1
+      dst: c_4
+      label: cases

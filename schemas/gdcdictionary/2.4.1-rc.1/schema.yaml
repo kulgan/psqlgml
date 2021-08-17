@@ -1,4 +1,4 @@
-$schema: http://json-schema.org/draft-04/schema#
+$schema: http://json-schema.org/draft-07/schema#
 additionalProperties: false
 definitions:
   aggregated_somatic_mutation:
@@ -100,8 +100,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -281,8 +294,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       total_reads:
         description: Total number of reads collected from samtools.
@@ -389,8 +415,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -438,8 +477,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -501,12 +553,26 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
-        type: string
+        enum:
+        - alignment_workflow
       updated_datetime:
         description: ''
       workflow_end_datetime:
@@ -664,8 +730,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -764,8 +843,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -898,8 +990,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -1009,8 +1114,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -1227,8 +1345,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       tissue_source_sites:
         description: ''
@@ -1332,8 +1463,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -1434,8 +1578,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -1659,8 +1816,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       tissue_source_sites:
         description: ''
@@ -1705,8 +1875,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -1791,8 +1974,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -1902,8 +2098,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -2015,8 +2224,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -2062,8 +2284,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -2187,8 +2422,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -2234,8 +2482,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -2281,8 +2542,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -2324,8 +2598,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -2357,8 +2644,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -2385,8 +2685,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -2762,8 +3075,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -3273,6 +3599,12 @@ definitions:
       days_to_recurrence:
         description: Number of days between the date used for index and the date the
           patient's disease recurred.
+      diagnosis_is_primary_disease:
+        description: Indicates whether this specific diagnosis represents the disease
+          that was the primary focus of the study. Additionally, this diagnosis is
+          reflected at the  case level, which is captured using the case.disease_type
+          property.
+        type: boolean
       eln_risk_classification:
         description: A recommended risk stratification system used to provide prognostic
           information in AML patients undergoing chemotherapy as well as allogeneic
@@ -8041,8 +8373,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       tissue_or_organ_of_origin:
         description: The text term used to describe the anatomic site of origin, of
@@ -8687,8 +9032,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -8717,8 +9075,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -8898,8 +9269,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       time_between_waking_and_first_smoke:
         description: The text term used to describe the approximate amount of time
@@ -9047,8 +9431,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -9310,8 +9707,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -9419,8 +9829,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       tags:
         description: ''
@@ -9519,8 +9942,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -11489,8 +11925,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -11652,8 +12101,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -11698,8 +12160,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -11768,8 +12243,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -11907,8 +12395,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -12016,8 +12517,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -12062,8 +12576,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -12181,8 +12708,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -12228,8 +12768,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -12343,8 +12896,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -12390,8 +12956,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -14280,8 +14859,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       test_analyte_type:
         description: The text term used to describe the type of analyte used for molecular
@@ -14316,15 +14908,18 @@ definitions:
         description: The text term used to describe the units of the test value for
           a molecular test. This property is used in conjunction with test_value.
         enum:
-        - count x10^9 cells/L
+        - count x10^9/L
         - g/dL
         - g/L
         - mcg/mL
         - mg/dL
         - mg/L
+        - mm^2
         - mmol/L
         - mU/mol Hb
+        - ng/mL
         - Not Reported
+        - percent
         - U/g Hb
         - U/L
         - U/mL
@@ -14402,8 +14997,54 @@ definitions:
       additional_pathology_findings:
         description: A section header that includes additional pathologic findings.
         enum:
-        - Pleurodesis, NOS
-        - Pleurodesis, Talc
+        - Adenomyosis
+        - Asbestos bodies
+        - Atrophic endometrium
+        - Atypical hyperplasia/Endometrial intraepithelial neoplasia (EIN)
+        - Autoimmune atrophic chronic gastritis
+        - Benign endocervical polyp
+        - Bilateral ovaries with endometriotic cyst and surface adhesions
+        - Carcinoma in situ
+        - Cirrhosis
+        - Clostridioides difficile (c. diff)
+        - Colonization; bacterial
+        - Colonization; fungal
+        - Cyst(s)
+        - Diffuse and early nodular diabetic glomerulosclerosis
+        - Dysplasia; high grade
+        - Dysplasia; low grade
+        - Endometrial polyp
+        - Endometriosis
+        - Endometroid carcinoma with local mucinous differentiation
+        - Endosalpingiosis
+        - Epithelial dysplasia
+        - Epithelial hyperplasia
+        - Gallbladder adenomyomatosis
+        - Glomerular disease
+        - Hyperkeratosis
+        - Inflammation
+        - Intestinal metaplasia
+        - Keratinizing dysplasia; mild
+        - Keratinizing dysplasia; moderate
+        - Keratinizing dysplasia; severe (carcinoma in situ)
+        - Leiomyoma
+        - Leiomyomata w/ degenerative changes
+        - Nonkeratinizing dysplasia; mild
+        - Nonkeratinizing dysplasia; moderate
+        - Nonkeratinizing dysplasia; severe (carcinoma in situ)
+        - Other
+        - PD-L1 CPS (223C LDT) - 20%
+        - Platinum-resistant
+        - Pleural plaque
+        - Pulmonary interstitial fibrosis
+        - Sialadenitis
+        - Sinonasal papilloma
+        - Squamous metaplasia
+        - Squamous papilloma; solitary
+        - Squamous papillomatosis
+        - Tubular (papillary) adenoma(s)
+        - Tumor has rough spikey edges
+        - Tumor-associated lymphoid proliferation
       anaplasia_present:
         description: Yes/no/unknown/not reported indicator used to describe whether
           anaplasia was present at the time of diagnosis.
@@ -14709,8 +15350,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       transglottic_extension:
         description: The text term used to describe an extension of the tumor beyond
@@ -14835,8 +15489,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -14866,8 +15533,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -14923,8 +15603,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -14960,8 +15653,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -15047,8 +15753,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -15147,8 +15866,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -15188,8 +15920,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -15311,8 +16056,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -15552,8 +16310,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       target_capture_kit:
         description: Description that can uniquely identify a target capture kit.
@@ -15776,8 +16547,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       total_sequences:
         description: A count of the total number of sequences processed.
@@ -15844,8 +16628,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -15905,8 +16702,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -15998,8 +16808,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -16680,8 +17503,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       time_between_clamping_and_freezing:
         description: Numeric representation of the elapsed time between the surgical
@@ -16876,8 +17712,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -16985,8 +17834,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -17093,8 +17955,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -17232,8 +18107,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       tissue_microarray_coordinates:
         description: The alphanumeric term used to describe the coordinates of a specific
@@ -17350,8 +18238,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -17399,8 +18300,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -17468,8 +18382,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -17538,8 +18465,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -17600,8 +18540,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -17718,8 +18671,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -17765,8 +18731,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -17894,8 +18873,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -18006,8 +18998,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -18115,12 +19120,26 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
-        type: string
+        enum:
+        - submitted_genomic_profile
       updated_datetime:
         description: ''
   submitted_genotyping_array:
@@ -18215,8 +19234,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -18317,8 +19349,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -18414,8 +19459,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -18530,8 +19588,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -18636,8 +19707,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -18674,8 +19758,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       type:
         description: ''
@@ -18770,8 +19867,21 @@ definitions:
       system_annotations:
         additionalProperties: true
         properties:
-          redacted:
+          latest:
+            description: True if this is the latest version of this node
             type: boolean
+          redacted:
+            description: GDC redacted node
+            type: boolean
+          release_blocked:
+            description: GDC release blocked node
+            type: boolean
+          tag:
+            description: Tag denoting different versions of anode
+            type: string
+          ver:
+            description: node's version number
+            type: number
         type: object
       therapeutic_agents:
         description: Text identification of the individual agent(s) used as part of
@@ -23719,6 +24829,8 @@ definitions:
         - Other
         - Pharmaceutical Therapy, NOS
         - Pleurodesis
+        - Pleurodesis, NOS
+        - Pleurodesis, Talc
         - Radiation Therapy, NOS
         - Radiation, 2D Conventional
         - Radiation, 3D Conformal
@@ -23756,7 +24868,7 @@ definitions:
         type: string
       updated_datetime:
         description: ''
-description: GDC Datamodel GraphML schema
+description: PsqlGraph datamodel GraphML schema
 properties:
   $schema:
     description: Supported schema
@@ -23772,11 +24884,6 @@ properties:
   extends:
     description: Relative address to another data files containing extra mappings
     type: string
-  model:
-    default: GDC
-    enum:
-    - GDC
-    - GPAS
   nodes:
     items:
       oneOf:
@@ -24040,3 +25147,5 @@ required:
 - nodes
 - edges
 type: object
+url: https://github.com/NCI-GDC/gdcdictionary.git
+version: 2.4.1-rc.1

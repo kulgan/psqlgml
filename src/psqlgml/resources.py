@@ -1,9 +1,12 @@
 import json
-from typing import Dict
+from typing import Dict, Generic, TypeVar, cast
 
+import attr
 import yaml
 
 from psqlgml.models import SchemaData
+
+T = TypeVar("T")
 
 
 def load_all(resource_dir: str, resource_name: str) -> Dict[str, SchemaData]:
@@ -12,7 +15,8 @@ def load_all(resource_dir: str, resource_name: str) -> Dict[str, SchemaData]:
 
     while resource_names:
         name = resource_names.pop()
-        obj = loads(f"{resource_dir}/{name}")
+        f = File[SchemaData](f"{resource_dir}/{name}")
+        obj = f.read()
         schema_data[name] = obj
 
         sub_resource = obj.get("extends")
@@ -21,20 +25,10 @@ def load_all(resource_dir: str, resource_name: str) -> Dict[str, SchemaData]:
     return schema_data
 
 
-def loads(file_name: str) -> SchemaData:
-    extension = file_name.split(".")[-1]
-    with open(file_name, "r") as r:
-        if extension == "json":
-            return json.loads(r.read())
-
-        if extension in ["yml", "yaml"]:
-            return yaml.safe_load(r)
-    return SchemaData()
-
-
 def merge(resource_folder: str, resource_name: str) -> SchemaData:
     file_name = f"{resource_folder}/{resource_name}"
-    rss: SchemaData = loads(file_name)
+    f = File[SchemaData](file_name)
+    rss: SchemaData = f.read()
 
     extended_resource = rss.pop("extends", None)
     if not extended_resource:
@@ -57,3 +51,22 @@ def merge(resource_folder: str, resource_name: str) -> SchemaData:
             rss["summary"][summary] = extended["summary"][summary]
 
     return rss
+
+
+@attr.s(frozen=True, auto_attribs=True)
+class File(Generic[T]):
+    absolute_name: str
+
+    @property
+    def extension(self) -> str:
+        return self.absolute_name.split(".")[-1]
+
+    def read(self) -> T:
+        loaded: T
+        with open(self.absolute_name, "r") as r:
+            if self.extension == "json":
+                loaded = cast(T, json.loads(r.read()))
+
+            if self.extension in ["yml", "yaml"]:
+                loaded = cast(T, yaml.safe_load(r))
+        return loaded

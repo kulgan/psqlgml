@@ -9,6 +9,6 @@ nodes:
 edges:
   - src: rg_1
     dst: c_1
-    label: gene_expressions
+    label: cases
   - src: rg_2
     dst: c_2

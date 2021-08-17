@@ -14,22 +14,22 @@ include = '\.pyi?$'
 [tool.coverage.run]
 branch = true
 context = "unit tests"
-source = ["pgraphml"]
+source = ["psqlgml"]
 
 [tool.coverage.html]
-title = "pgraphml coverage report"
+title = "psqlgml coverage report"
 directory = "docs/htmlcov"
 show_contexts = true
 
 [tool.isort]
 profile = "black"
-known_first_party = ["pgraphml"]
+known_first_party = ["psqlgml"]
 
 [tool.mypy]
 pretty = true
 ignore_missing_imports = true
 disallow_untyped_defs = true
-disallow_untyped_calls = true
+disallow_untyped_calls = false
 strict_optional = true
 no_implicit_optional = true
 check_untyped_defs = true

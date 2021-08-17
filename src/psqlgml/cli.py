@@ -5,12 +5,12 @@ from logging.config import dictConfig
 import attr
 import click
 import yaml
-from pkg_resources import get_distribution, resource_filename
 
-import psqlgml
-from psqlgml.typings import DictionaryType, RenderFormat, ValidatorType
+from psqlgml import VERSION
+from psqlgml import dictionary as d
+from psqlgml import schema, validators, visualization
+from psqlgml.typings import RenderFormat, ValidatorType
 
-VERSION = get_distribution(psqlgml.__name__).version
 logger: logging.Logger
 
 
@@ -32,9 +32,27 @@ def app() -> None:
 @click.option(
     "-d",
     "--dictionary",
-    type=click.Choice(["GDC", "GPAS"], case_sensitive=False),
-    default="GPAS",
-    help="Dictionary to generate schema for",
+    type=str,
+    default="https://github.com/NCI-GDC/gdcdictionary.git",
+    help="Remote git dictionary repository url",
+)
+@click.option(
+    "-v",
+    "--version",
+    type=str,
+    required=True,
+    default="master",
+    help="git tag, branch or commit for the selected dictionary",
+)
+@click.option(
+    "-n", "--name", type=str, default="gdcdictionary", help="label/name for the dictionary"
+)
+@click.option(
+    "-p",
+    "--schema-path",
+    type=str,
+    default="gdcdictionary/schemas",
+    help="Relative path to schema directory",
 )
 @click.option(
     "-o",
@@ -43,28 +61,50 @@ def app() -> None:
     required=False,
     help="Output directory to store generated schema",
 )
+@click.option(
+    "-f",
+    "--force/--no-force",
+    type=bool,
+    default=False,
+    is_flag=True,
+    help="Force regeneration if already exists",
+)
 @app.command(name="generate")
-def schema_gen(dictionary: DictionaryType, output_dir: str) -> None:
-    """Generate schema based on currently installed dictionaries"""
+def schema_gen(
+    dictionary: str, output_dir: str, version: str, name: str, schema_path: str, force: bool
+) -> None:
+    """Generate schema for specified dictionary"""
     global logger
     logger.debug(f"Generating psqlgml schema for {dictionary} Dictionary")
 
-    from psqlgml.core import generate_schema
-
-    output_dir = output_dir or resource_filename(psqlgml.__name__, "schema")
-    schema_file = generate_schema(output_dir, dictionary)
+    loaded_dictionary = d.load(
+        version=version, name=name, git_path=dictionary, schema_path=schema_path, overwrite=force
+    )
+    schema_file = schema.generate(
+        loaded_dictionary=loaded_dictionary,
+        output_location=output_dir,
+    )
     logging.info(f"schema generation completed successfully: {schema_file}")
 
 
 @click.option(
     "-d",
     "--dictionary",
-    type=click.Choice(["GDC", "GPAS"], case_sensitive=False),
-    default="GPAS",
-    help="Dictionary to generate schema for",
+    type=str,
+    default="gdcdictionary",
+    help="Dictionary name/label to use for validation",
 )
 @click.option(
     "-v",
+    "--version",
+    type=str,
+    required=True,
+    default="master",
+    help="dictionary schema version, which is either a git hash, branch or tag. "
+    "Should match a previously generated schema",
+)
+@click.option(
+    "-V",
     "--validator",
     type=click.Choice(["ALL", "DATA", "SCHEMA"], case_sensitive=False),
     required=False,
@@ -75,16 +115,25 @@ def schema_gen(dictionary: DictionaryType, output_dir: str) -> None:
 @click.option("-f", "--data-file", type=str, required=True, help="The file to validate")
 @app.command(name="validate")
 def validate_file(
+    version: str,
     data_file: str,
-    dictionary: DictionaryType,
+    dictionary: str,
     data_dir: str,
     validator: ValidatorType,
 ) -> None:
     global logger
     logger.debug(f"running {validator} validators for {data_dir}/{data_file}")
-    from psqlgml.core import validate
 
-    validate(data_dir=data_dir, data_file=data_file, dictionary=dictionary, validator=validator)
+    gml_schema = schema.read(dictionary, version)
+    loaded = d.load(name=dictionary, version=version)
+    request = validators.ValidationRequest(
+        data_file=data_file, data_dir=data_dir, schema=gml_schema, dictionary=loaded
+    )
+    validators.validate(
+        request=request,
+        validator=validator,
+        print_error=True,
+    )
 
 
 @click.option(
@@ -97,7 +146,7 @@ def validate_file(
 )
 @click.option(
     "--output-format",
-    type=click.Choice(["jpg", "pdf", "png"]),
+    type=click.Choice(["jpeg", "pdf", "png"]),
     required=False,
     default="png",
     help="Generated image formal",
@@ -106,13 +155,13 @@ def validate_file(
     "-d", "--data-dir", type=click.Path(exists=True), help="Base directory to look up data files"
 )
 @click.option("-f", "--data-file", type=str, required=True, help="The file to visualize")
+@click.option("-s", "--show/--no-show", is_flag=True, default=True)
 @app.command(name="visualize")
 def visualize_data(
-    output_dir: str, data_dir: str, data_file: str, output_format: RenderFormat
+    output_dir: str, data_dir: str, data_file: str, output_format: RenderFormat, show: bool
 ) -> None:
-    from psqlgml import visualize
 
-    visualize.visualize_graph(data_dir, data_file, output_dir, output_format)
+    visualization.draw(data_dir, data_file, output_dir, output_format, show_rendered=show)
 
 
 def configure_logger(cfg: LoggingConfig) -> None:

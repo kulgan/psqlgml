@@ -1,7 +1,9 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "description": "{{ model|upper }} Datamodel GraphML schema",
+  "description": "PsqlGraph datamodel GraphML schema",
+  "url": "{{ git_url }}",
+  "version": "{{ git_version }}",
   "required": [
     "nodes",
     "edges"
@@ -31,7 +33,24 @@
             "additionalProperties": true,
             "properties": {
               "redacted": {
-                "type": "boolean"
+                "type": "boolean",
+                "description": "GDC redacted node"
+              },
+              "release_blocked": {
+                 "type": "boolean",
+                 "description": "GDC release blocked node"
+              },
+              "tag": {
+                 "type": "string",
+                 "description": "Tag denoting different versions of anode"
+              },
+              "ver": {
+                 "type": "number",
+                 "description": "node's version number"
+              },
+              "latest": {
+                 "type": "boolean",
+                 "description": "True if this is the latest version of this node"
               }
             }
         },
@@ -90,13 +109,6 @@
     "$schema": {
       "type": "string",
       "description": "Supported schema"
-    },
-    "model": {
-      "enum": [
-        "GDC",
-        "GPAS"
-      ],
-      "default": "GDC"
     },
     "description": {
       "type": "string",

@@ -1,3 +1,4 @@
+extends: simple_valid.json
 unique_field: node_id
 nodes:
   - label: program
@@ -6,5 +7,5 @@ nodes:
     node_id: pr_1
 edges:
   - src: p_1
-    dst: pr_1
-    label: programs
+    dst: pr_4
+    label: projects

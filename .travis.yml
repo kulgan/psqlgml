@@ -1,7 +1,20 @@
 language: python
-dist: bionic
 cache:
   - pip
+
+addons:
+  apt:
+    packages:
+      - graphviz
+  homebrew:
+    packages:
+      - graphviz
+
+python:
+  - 3.6
+  - 3.7
+  - 3.8
+  - 3.9
 
 jobs:
   fast_finish: true
@@ -12,13 +25,24 @@ jobs:
         - pip install tox-travis
       script:
         - tox -e static
-    - name: test
-      python:
-        - 3.6
-        - 3.7
-        - 3.8
-        - 3.9
-      install:
-        - pip install tox-travis
-      script:
-        - tox
+#    - name: Python 3.7 - OSX
+#      os: osx
+#      osx_image: xcode11.7
+#      language: shell
+#      python: 3.7
+#      script: tox -e py37
+#    - name: Python 3.6 - Windows
+#      os: windows
+#      language: shell
+#      before_install:
+#        - choco install graphviz
+#        - choco install python --version 3.6.8
+#        - python -m pip install --upgrade pip
+#      env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
+#      script: tox -e py36
+
+install:
+  - pip install tox-travis
+
+script:
+  - tox
