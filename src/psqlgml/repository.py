@@ -1,14 +1,14 @@
 import logging
 import os
-from dataclasses import dataclass
 from pathlib import Path
 
+import attr
 from dulwich import objects, porcelain
 
 logger = logging.getLogger(__name__)
 
 
-@dataclass(frozen=True)
+@attr.s(auto_attribs=True, frozen=True)
 class RepoMeta:
     name: str
     remote_git_url: str
@@ -26,7 +26,7 @@ class RepoMeta:
         return os.path.exists("{}/.git".format(self.git_dir))
 
 
-@dataclass()
+@attr.s(auto_attribs=True)
 class RepoCheckout:
     repo: RepoMeta
     commit: str

@@ -4,7 +4,8 @@
   "nodes": [
     {
       "label": "project",
-      "node_id": "pr_2"
+      "node_id": "pr_2",
+      "code": "PXM"
     },
     {
       "label": "case",

@@ -2,6 +2,9 @@ unique_field: node_id
 nodes:
   - label: program
     node_id: p_1
+    name: SM-KD
+    acl:
+      - gh
   - label: project
     node_id: pr_1
 edges:

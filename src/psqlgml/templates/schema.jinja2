@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "description": "PsqlGraph datamodel GraphML schema",
+  "description": "Basic GraphML schema for psqlgraph data structures",
   "url": "{{ git_url }}",
   "version": "{{ git_version }}",
   "required": [
@@ -10,8 +10,35 @@
   ],
   "additionalProperties": false,
   "definitions": {
+    "system_annotations": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "redacted": {
+          "type": "boolean",
+          "description": "GDC redacted node"
+        },
+        "release_blocked": {
+          "type": "boolean",
+          "description": "GDC release blocked node"
+        },
+        "tag": {
+          "type": "string",
+          "description": "Tag denoting different versions of anode"
+        },
+        "ver": {
+          "type": "number",
+          "description": "node's version number"
+        },
+        "latest": {
+          "type": "boolean",
+          "description": "True if this is the latest version of this node"
+        }
+      }
+    },
     {% for label, props in schema | dictsort %}
     "{{ label }}": {
+      "type": "object",
       "description": "{{ props.description | trim }}",
       "additionalProperties": false,
       "properties": {
@@ -28,49 +55,50 @@
               "type": "string"
            }
         },
+        "properties": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+          {% for prop, info in props.properties | dictsort %}
+            "{{ prop }}": {
+            {% if info.type %}
+              "type": "{{ info.type[0] if info.type is iterable and (info.type is not string) else info.type }}",
+            {% endif %}
+            {% if info.enum %}
+              "enum": [
+              {% for enum in info.enum | sort %}
+                "{{ enum }}"{%+ if not loop.last +%},{%+ endif +%}
+              {% endfor %}
+              ],
+            {% endif %}
+            {% if info.default %}
+              "default": "{{ info.default|e }}",
+            {% endif %}
+              "description": "{{ info.description | trim }}"
+            }{%+ if not loop.last +%},{%+ endif +%}
+          {% endfor %}
+          }
+        },
         "system_annotations": {
-            "type": "object",
-            "additionalProperties": true,
-            "properties": {
-              "redacted": {
-                "type": "boolean",
-                "description": "GDC redacted node"
-              },
-              "release_blocked": {
-                 "type": "boolean",
-                 "description": "GDC release blocked node"
-              },
-              "tag": {
-                 "type": "string",
-                 "description": "Tag denoting different versions of anode"
-              },
-              "ver": {
-                 "type": "number",
-                 "description": "node's version number"
-              },
-              "latest": {
-                 "type": "boolean",
-                 "description": "True if this is the latest version of this node"
-              }
-            }
+          "$ref": "#/definitions/system_annotations"
         },
         {% for prop, info in props.properties | dictsort %}
         "{{ prop }}": {
           {% if info.type %}
-          "type": "{{ info.type[0] if info.type is iterable and (info.type is not string) else info.type }}",
+            "type": "{{ info.type[0] if info.type is iterable and (info.type is not string) else info.type }}",
           {% endif %}
           {% if info.enum %}
-          "enum": [
+            "enum": [
             {% for enum in info.enum | sort %}
-            "{{ enum }}"{%+ if not loop.last +%},{%+ endif +%}
+              "{{ enum }}"{%+ if not loop.last +%},{%+ endif +%}
             {% endfor %}
-          ],
+            ],
           {% endif %}
           {% if info.default %}
-          "default": "{{ info.default|e }}",
+            "default": "{{ info.default|e }}",
           {% endif %}
-          "description": "{{ info.description | trim }}"
-        }{%+ if not loop.last +%},{%+ endif +%}
+            "description": "{{ info.description | trim }}"
+          }{%+ if not loop.last +%},{%+ endif +%}
         {% endfor %}
       }
     },

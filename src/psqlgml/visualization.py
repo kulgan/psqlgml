@@ -6,7 +6,6 @@ from functools import lru_cache
 from graphviz import Digraph
 
 from psqlgml import resources, typings
-from psqlgml.typings import UniqueFieldType
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +20,7 @@ def draw(
     graph = resources.merge(data_dir, data_file)
 
     output_name = data_file.split(".")[0]
-    unique_field: UniqueFieldType = graph.get("unique_field", "submitter_id")
+    unique_field: typings.UniqueFieldType = graph.get("unique_field", "submitter_id")
     dot = Digraph("g", filename=f"{output_name}.gv", node_attr={"shape": "record"})
     for node in graph["nodes"]:
         dot.node(node[unique_field], fillcolor=get_color(node["label"]), style="filled")

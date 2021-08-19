@@ -10,8 +10,7 @@ from PIL import Image
 from pkg_resources import get_distribution
 
 import psqlgml
-from psqlgml import cli, models, typings
-from psqlgml.typings import DictionaryType
+from psqlgml import cli, typings
 from tests.helpers import SchemaInfo
 
 VERSION = get_distribution(psqlgml.__name__).version
@@ -69,7 +68,6 @@ def test_schema_generate_local(cli_runner: CliRunner, data_dir: str, tmpdir: Pat
 @pytest.mark.parametrize("data_file", ["simple_valid.json", "simple_valid.yaml"])
 def test_visualize_data(
     cli_runner: CliRunner,
-    test_schema: models.GmlSchema,
     data_dir: str,
     tmpdir: Path,
     render_format: typings.RenderFormat,
@@ -114,7 +112,6 @@ def test_validate_file(
     data_dir: str,
     local_schema: SchemaInfo,
     dictionary: str,
-    tmpdir: str,
     data_file: str,
     version: str,
 ):

@@ -25,7 +25,7 @@ def app() -> None:
     """psqlgml script for generating, validating and viewing graph data"""
     global logger
 
-    configure_logger(LoggingConfig(level="DEBUG"))
+    configure_logger(LoggingConfig(level="ERROR"))
     logger = logging.getLogger(__name__)
 
 

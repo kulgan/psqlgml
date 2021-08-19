@@ -21,7 +21,7 @@ env = j.Environment(
 def generate(
     loaded_dictionary: dictionary.Dictionary,
     output_location: Optional[str] = None,
-    template_name: str = "schema.jinja",
+    template_name: str = "schema.jinja2",
 ) -> str:
     """Creates a new json schema based on specified dictionary"""
 

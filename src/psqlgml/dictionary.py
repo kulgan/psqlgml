@@ -1,9 +1,9 @@
 import logging
 import os
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, FrozenSet, List, Optional, Set, TypeVar, cast
 
+import attr
 import yaml
 from jsonschema import RefResolver
 
@@ -69,7 +69,7 @@ class SchemaDict(typings.TypedDict):
     uniqueKeys: List[List[str]]
 
 
-@dataclass()
+@attr.s(auto_attribs=True)
 class Schema:
     raw: SchemaDict
 
@@ -126,7 +126,7 @@ class Schema:
         return self.raw["properties"]
 
 
-@dataclass()
+@attr.s(auto_attribs=True)
 class Resolver:
     name: str
     schema: Dict[str, Any]
@@ -142,11 +142,11 @@ class Resolver:
         _, resolution = ref.resolve(reference)
         return resolve_schema(resolution, resolver)
 
-    def __repr__(self) -> str:
+    def repr(self) -> str:
         return f"{self.__class__.__name__}<{self.name}>"
 
 
-@dataclass(frozen=True)
+@attr.s(auto_attribs=True, frozen=True)
 class Association:
     src: str
     dst: str
@@ -172,7 +172,7 @@ def extract_association(src: str, link: SubGroupedLink) -> Set[Association]:
     return associations
 
 
-@dataclass(frozen=True)
+@attr.s(auto_attribs=True, frozen=True)
 class Dictionary:
     url: str
     name: str

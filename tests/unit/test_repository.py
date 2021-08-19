@@ -27,9 +27,10 @@ def test_clone_repo() -> None:
     assert r.head()
 
 
-def test_get_checkout_dir() -> None:
-    chk_dir = repository.get_checkout_dir(repo_name="smokes", commit_ref="sss")
-    assert chk_dir == f"{Path.home()}/.gml/dictionaries/smokes/sss"
+def test_get_checkout_dir(tmpdir: Path) -> None:
+    with mock.patch.dict(os.environ, {"GML_DICTIONARY_HOME": f"{tmpdir}/dictionaries"}):
+        chk_dir = repository.get_checkout_dir(repo_name="smokes", commit_ref="sss")
+        assert chk_dir == f"{tmpdir}/dictionaries/smokes/sss"
 
 
 def test_get_commit_id() -> None:
