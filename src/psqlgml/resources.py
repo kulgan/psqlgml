@@ -4,18 +4,18 @@ from typing import Dict, Generic, TypeVar, cast
 import attr
 import yaml
 
-from psqlgml.models import SchemaData
+from psqlgml.types import GmlData
 
 T = TypeVar("T")
 
 
-def load_all(resource_dir: str, resource_name: str) -> Dict[str, SchemaData]:
-    schema_data: Dict[str, SchemaData] = {}
+def load_all(resource_dir: str, resource_name: str) -> Dict[str, GmlData]:
+    schema_data: Dict[str, GmlData] = {}
     resource_names = {resource_name}
 
     while resource_names:
         name = resource_names.pop()
-        f = File[SchemaData](f"{resource_dir}/{name}")
+        f = File[GmlData](f"{resource_dir}/{name}")
         obj = f.read()
         schema_data[name] = obj
 
@@ -25,10 +25,10 @@ def load_all(resource_dir: str, resource_name: str) -> Dict[str, SchemaData]:
     return schema_data
 
 
-def merge(resource_folder: str, resource_name: str) -> SchemaData:
+def merge(resource_folder: str, resource_name: str) -> GmlData:
     file_name = f"{resource_folder}/{resource_name}"
-    f = File[SchemaData](file_name)
-    rss: SchemaData = f.read()
+    f = File[GmlData](file_name)
+    rss: GmlData = f.read()
 
     extended_resource = rss.pop("extends", None)
     if not extended_resource:

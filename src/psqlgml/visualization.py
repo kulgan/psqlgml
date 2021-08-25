@@ -5,6 +5,7 @@ from functools import lru_cache
 
 from graphviz import Digraph
 
+import psqlgml.types
 from psqlgml import resources, typings
 
 logger = logging.getLogger(__name__)
@@ -14,13 +15,13 @@ def draw(
     data_dir: str,
     data_file: str,
     output_dir: str,
-    output_format: typings.RenderFormat = "png",
+    output_format: psqlgml.types.RenderFormat = "png",
     show_rendered: bool = False,
 ) -> None:
     graph = resources.merge(data_dir, data_file)
 
     output_name = data_file.split(".")[0]
-    unique_field: typings.UniqueFieldType = graph.get("unique_field", "submitter_id")
+    unique_field: psqlgml.types.UniqueFieldType = graph.get("unique_field", "submitter_id")
     dot = Digraph("g", filename=f"{output_name}.gv", node_attr={"shape": "record"})
     for node in graph["nodes"]:
         dot.node(node[unique_field], fillcolor=get_color(node["label"]), style="filled")

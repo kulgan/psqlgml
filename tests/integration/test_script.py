@@ -10,6 +10,7 @@ from PIL import Image
 from pkg_resources import get_distribution
 
 import psqlgml
+import psqlgml.types
 from psqlgml import cli, typings
 from tests.helpers import SchemaInfo
 
@@ -70,7 +71,7 @@ def test_visualize_data(
     cli_runner: CliRunner,
     data_dir: str,
     tmpdir: Path,
-    render_format: typings.RenderFormat,
+    render_format: psqlgml.types.RenderFormat,
     data_file: str,
 ) -> None:
     result = cli_runner.invoke(

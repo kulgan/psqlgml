@@ -5,30 +5,30 @@ import attr
 import colored
 from jsonschema import Draft7Validator
 
-from psqlgml import dictionary, models, resources
-from psqlgml.typings import Literal, UniqueFieldType, ValidatorType
+import psqlgml.types
+from psqlgml import dictionary, resources, types, typings
 
 SCHEMA: Dict[str, Draft7Validator] = {}
-ViolationType = Literal[
+ViolationType = typings.Literal[
     "Link Association Violation",
     "Duplicate Definition Violation",
     "Jsonschema Violation",
     "Undefined Link Violation",
 ]
-ViolationErrorType = Literal["error", "warning"]
+ViolationErrorType = typings.Literal["error", "warning"]
 
 
 @attr.s(auto_attribs=True)
 class ValidationRequest:
     data_dir: str
     data_file: str
-    schema: models.GmlSchema
+    schema: types.GmlSchema
     dictionary: dictionary.Dictionary
 
-    _payload: Dict[str, models.SchemaData] = attr.ib(default=None)
+    _payload: Dict[str, types.GmlData] = attr.ib(default=None)
 
     @property
-    def payload(self) -> Dict[str, models.SchemaData]:
+    def payload(self) -> Dict[str, types.GmlData]:
         if not self._payload:
             self._payload = resources.load_all(self.data_dir, self.data_file)
         return self._payload
@@ -90,7 +90,7 @@ class SchemaValidator(Validator):
             SCHEMA[self.dictionary_tag] = Draft7Validator(schema=gml_schema)
         return SCHEMA[self.dictionary_tag]
 
-    def validate_schema(self, obj: models.SchemaData) -> Set[DataViolation]:
+    def validate_schema(self, obj: types.GmlData) -> Set[DataViolation]:
 
         violations: Set[DataViolation] = set()
         for e in self.validator.iter_errors(obj):
@@ -123,7 +123,7 @@ class DuplicateDefinitionValidator(Validator):
         violations: Dict[str, Set[DataViolation]] = {}
         for resource, schema_data in payload.items():
             nodes = schema_data["nodes"]
-            unique_field: UniqueFieldType = schema_data.get("unique_field", "submitter_id")
+            unique_field: types.UniqueFieldType = schema_data.get("unique_field", "submitter_id")
 
             sub_violations: Set[DataViolation] = set()
             for index, node in enumerate(nodes):
@@ -150,7 +150,7 @@ class UndefinedLinkValidator(Validator):
         violations: Dict[str, Set[DataViolation]] = {}
         entries: Set[str] = set()
         for resource, schema_data in payload.items():
-            unique_field: UniqueFieldType = schema_data.get("unique_field", "submitter_id")
+            unique_field: types.UniqueFieldType = schema_data.get("unique_field", "submitter_id")
             uids = (n[unique_field] for n in schema_data["nodes"])
             entries.update(uids)
 
@@ -160,7 +160,7 @@ class UndefinedLinkValidator(Validator):
 
             for index, edge in enumerate(edges):
                 for key in ["src", "dst"]:
-                    key = cast(Literal["src", "dst"], key)
+                    key = cast(typings.Literal["src", "dst"], key)
                     if edge[key] in entries:
                         continue
                     str_path = f"edges.{index}"
@@ -181,7 +181,7 @@ class AssociationValidator(Validator):
         node_types: Dict[str, str] = {}
 
         for resource, schema in payload.items():
-            unique_field: UniqueFieldType = schema.get("unique_field", "submitter_id")
+            unique_field: types.UniqueFieldType = schema.get("unique_field", "submitter_id")
             for node in schema["nodes"]:
                 unique_id = node[unique_field]
                 node_types[unique_id] = node["label"]
@@ -226,7 +226,7 @@ class ValidatorFactory:
         v = validator_type(request=self.request)
         self.validators.append(v)
 
-    def register_validator_type(self, validator_type: ValidatorType) -> None:
+    def register_validator_type(self, validator_type: psqlgml.types.ValidatorType) -> None:
         validators = VALIDATORS[validator_type]
         for validator in validators:
             self.register_validator(validator)
@@ -260,7 +260,7 @@ VALIDATORS: Dict[str, Iterable[Type[Validator]]] = {
 
 def validate(
     request: ValidationRequest,
-    validator: ValidatorType = "ALL",
+    validator: psqlgml.types.ValidatorType = "ALL",
     print_error: bool = False,
 ) -> Dict[str, Set[DataViolation]]:
     register_defaults = True if validator == "ALL" else False

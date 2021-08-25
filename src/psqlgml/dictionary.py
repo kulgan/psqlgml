@@ -1,5 +1,6 @@
 import logging
 import os
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, FrozenSet, List, Optional, Set, TypeVar, cast
 
@@ -7,7 +8,7 @@ import attr
 import yaml
 from jsonschema import RefResolver
 
-from psqlgml import repository, typings
+from psqlgml import repository, types, typings
 
 logger = logging.getLogger(__name__)
 
@@ -21,57 +22,12 @@ DEFAULT_DEFINITIONS: FrozenSet[str] = frozenset(
 )
 
 T = TypeVar("T")
-Category = typings.Literal[
-    "administrative",
-    "analysis",
-    "biospecimen",
-    "clinical",
-    "data",
-    "data_bundle",
-    "data_file",
-    "index_file",
-    "metadata_file",
-    "notation",
-    "qc_bundle",
-    "TBD",
-]
 RESOLVERS: Dict[str, "Resolver"] = {}
-
-
-class Link(typings.TypedDict):
-    exclusive: bool
-    required: bool
-    name: str
-    label: str
-    target_type: str
-    backref: str
-    multiplicity: str
-
-
-class SubGroupedLink(Link, total=False):
-    subgroup: List[Link]
-
-
-class SchemaDict(typings.TypedDict):
-    id: str
-    title: str
-    namespace: str
-    category: Category
-    submittable: bool
-    downloadable: bool
-    previous_version_downloadable: bool
-    description: str
-    links: List[SubGroupedLink]
-    properties: Dict[str, Any]
-    required: List[str]
-    systemProperties: List[str]
-    tagProperties: List[str]
-    uniqueKeys: List[List[str]]
 
 
 @attr.s(auto_attribs=True)
 class Schema:
-    raw: SchemaDict
+    raw: types.DictionarySchema
 
     @property
     def id(self) -> str:
@@ -86,7 +42,7 @@ class Schema:
         return self.raw["namespace"]
 
     @property
-    def category(self) -> Category:
+    def category(self) -> types.Category:
         return self.raw["category"]
 
     @property
@@ -110,8 +66,8 @@ class Schema:
         return self.raw["systemProperties"]
 
     @property
-    def links(self) -> List[SubGroupedLink]:
-        return self.raw["links"]
+    def links(self) -> List[types.SubGroupedLink]:
+        return self.raw.get("links") or []
 
     @property
     def required(self) -> List[str]:
@@ -153,9 +109,9 @@ class Association:
     label: str
 
 
-def extract_association(src: str, link: SubGroupedLink) -> Set[Association]:
+def extract_association(src: str, link: types.SubGroupedLink) -> Set[Association]:
     associations = set()
-    links: List[SubGroupedLink] = [link]
+    links: List[types.SubGroupedLink] = [link]
 
     while links:
         current = links.pop()
@@ -167,17 +123,17 @@ def extract_association(src: str, link: SubGroupedLink) -> Set[Association]:
             associations.add(Association(dst, src, backref))
         if "subgroup" in current:
             for sub in current["subgroup"]:
-                links.append(cast(SubGroupedLink, sub))
+                links.append(cast(types.SubGroupedLink, sub))
 
     return associations
 
 
-@attr.s(auto_attribs=True, frozen=True)
+@attr.s(auto_attribs=True, frozen=True, hash=True)
 class Dictionary:
-    url: str
     name: str
     version: str
-    schema: Dict[str, Schema]
+    schema: Dict[str, Schema] = attr.ib(hash=False)
+    url: Optional[str] = None
 
     @property
     def links(self) -> Set[str]:
@@ -187,9 +143,11 @@ class Dictionary:
             all_links.update([assoc.label for assoc in associations])
         return all_links
 
+    @lru_cache()
     def associations(self, label: str) -> Set[Association]:
         return {a for a in self.all_associations() if a.src == label}
 
+    @lru_cache()
     def all_associations(self) -> Set[Association]:
         associations: Set[Association] = set()
         for label, label_schema in self.schema.items():
@@ -210,7 +168,7 @@ def load_schemas(
 ) -> Dict[str, Schema]:
 
     excludes: FrozenSet[str] = frozenset([meta_schema] + list(definitions))
-    raw_schemas: List[SchemaDict] = []
+    raw_schemas: List[types.DictionarySchema] = []
 
     definitions_paths = Path(schema_path)
     for definition in definitions_paths.iterdir():
@@ -221,7 +179,7 @@ def load_schemas(
         schema = load_yaml(definition)
         RESOLVERS[path] = Resolver(name=path, schema=schema)
         if path not in excludes:
-            raw_schemas.append(cast(SchemaDict, schema))
+            raw_schemas.append(cast(types.DictionarySchema, schema))
 
     return _load_schema(raw_schemas)
 
@@ -260,12 +218,12 @@ def resolve_ref(reference: str, resolver: Optional[Resolver] = None) -> Any:
     return resolver.resolve(reference)
 
 
-def _load_schema(schemas: List[SchemaDict]) -> Dict[str, Schema]:
+def _load_schema(schemas: List[types.DictionarySchema]) -> Dict[str, Schema]:
     loaded: Dict[str, Schema] = {}
     for schema in schemas:
         logger.debug(f"Resolving dictionary schema with id: {schema['id']}")
 
-        raw: SchemaDict = resolve_schema(schema)
+        raw: types.DictionarySchema = resolve_schema(schema)
         loaded[schema["id"]] = Schema(raw=raw)
 
         logger.debug(f"Schema resolution complete for schema id: {schema['id']}")
@@ -277,30 +235,48 @@ def load(
     overwrite: bool = False,
     name: str = "gdcdictionary",
     schema_path: str = "gdcdictionary/schemas",
-    git_path: str = "https://github.com/NCI-GDC/gdcdictionary.git",
-    meta_schema: str = DEFAULT_META_SCHEMA,
-    definitions: FrozenSet[str] = DEFAULT_DEFINITIONS,
+    git_url: str = "https://github.com/NCI-GDC/gdcdictionary.git",
 ) -> Dictionary:
+    """Downloads and loads a dictionary instance based on the input parameters
+
+    Args:
+        version: dictionary version number
+        overwrite: force a re-download of the dictionary files, defaults to false
+        name: name/label used to save the dictionary locally, defaults to gdcdictionary
+        schema_path: path to the dictionary files with the dictionary git repository
+        git_url: URL to the git repository
+    Returns:
+        A Dictionary instance
+    """
 
     local_dictionary = load_local(name, version) if not overwrite else None
     if local_dictionary:
         return local_dictionary
 
-    logger.info(f"Attempting to read dictionary from location {git_path}")
-    repo = repository.RepoMeta(remote_git_url=git_path, name=name)
+    logger.info(f"Attempting to read dictionary from location {git_url}")
+    repo = repository.RepoMeta(remote_git_url=git_url, name=name)
     checkout_command = repository.RepoCheckout(
         repo=repo, path=schema_path, commit=version, override=overwrite
     )
     checkout_dir = repository.checkout(checkout_command)
 
     logger.info(f"loading dictionary from {checkout_dir}")
-    loaded_schema = load_schemas(checkout_dir, meta_schema, definitions)
-    return Dictionary(url=git_path, name=name, version=version, schema=loaded_schema)
+    loaded_schema = load_schemas(checkout_dir, DEFAULT_META_SCHEMA, DEFAULT_DEFINITIONS)
+    return Dictionary(url=git_url, name=name, version=version, schema=loaded_schema)
 
 
 def load_local(
     name: str, version: str, dictionary_location: Optional[str] = None
 ) -> Optional[Dictionary]:
+    """Attempts to load a previously downloaded dictionary from a local location
+
+    Args:
+        name: name/label used to save the dictionary locally
+        version: version number of the saved dictionary
+        dictionary_location: base directory where all dictionaries are dumped
+    Returns:
+        A Dictionary instance if dictionary files were proviously downloaded, else None
+    """
     dict_home = os.getenv("GML_DICTIONARY_HOME", f"{Path.home()}/.gml/dictionaries")
     dictionary_location = dictionary_location or dict_home
     directory = Path(f"{dictionary_location}/{name}/{version}")
@@ -310,3 +286,20 @@ def load_local(
     logger.info(f"Attempting to load dictionary from local path {directory}")
     s = load_schemas(str(directory), DEFAULT_META_SCHEMA, DEFAULT_DEFINITIONS)
     return Dictionary(name=name, version=version, schema=s, url=str(directory))
+
+
+def from_object(schema: Dict[str, types.DictionarySchema], name: str, version: str) -> Dictionary:
+    """Loads a dictionary from a traditional dictionary object loaded using a compliant gdcdictionary
+
+    Args:
+        schema: gdcdictionary compliant schema
+        name: unique name/label used to identify this dictionary
+        version: appropriate version number for the dictionary
+    Returns:
+        A Dictionary instance
+    """
+    revised_schema: Dict[str, Schema] = {}
+
+    for label, s in schema.items():
+        revised_schema[label] = Schema(raw=s)
+    return Dictionary(schema=revised_schema, name=name, version=version)

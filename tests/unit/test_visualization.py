@@ -3,13 +3,14 @@ from pathlib import Path
 import pytest
 from PIL import Image
 
+import psqlgml.types
 from psqlgml import typings, visualization
 
 
 @pytest.mark.parametrize("render_format", ["png", "jpeg", "pdf"])
 @pytest.mark.parametrize("data_file", ["simple_valid.json", "simple_valid.yaml"])
 def test_draw(
-    data_dir: str, tmpdir: Path, data_file: str, render_format: typings.RenderFormat
+    data_dir: str, tmpdir: Path, data_file: str, render_format: psqlgml.types.RenderFormat
 ) -> None:
     output_dir = f"{tmpdir}"
     visualization.draw(data_dir, data_file, output_dir, output_format=render_format)

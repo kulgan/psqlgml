@@ -2,7 +2,7 @@ from typing import Callable, Set
 
 import pytest
 
-from psqlgml import dictionary, models, typings, validators
+from psqlgml import dictionary, types, typings, validators
 
 
 class CreateValidationRequest(typings.Protocol):
@@ -12,7 +12,7 @@ class CreateValidationRequest(typings.Protocol):
 
 @pytest.fixture()
 def validation_request(
-    data_dir: str, local_dictionary: dictionary.Dictionary, test_schema: models.GmlSchema
+    data_dir: str, local_dictionary: dictionary.Dictionary, test_schema: types.GmlSchema
 ) -> Callable[[str], validators.ValidationRequest]:
     def create_request(data_file: str) -> validators.ValidationRequest:
         return validators.ValidationRequest(
@@ -91,7 +91,7 @@ def test_association_validator(validation_request: CreateValidationRequest) -> N
 
 @pytest.mark.parametrize("validator", ["ALL", "SCHEMA", "DATA"])
 def test_validation_factory(
-    validation_request: CreateValidationRequest, validator: validators.ValidatorType
+    validation_request: CreateValidationRequest, validator: types.ValidatorType
 ) -> None:
     request = validation_request(data_file="invalid/association.yaml")
 

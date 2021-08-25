@@ -7,7 +7,7 @@ from typing import Optional
 import jinja2 as j
 import yaml
 
-from psqlgml import dictionary, models, resources
+from psqlgml import dictionary, resources, types
 
 logger = logging.getLogger(__name__)
 env = j.Environment(
@@ -60,7 +60,7 @@ def write_template(rendered_template: str, file_name: str) -> None:
         json.dump(loaded, d, indent=2)
 
 
-def read(name: str, version: str, schema_location: Optional[str] = None) -> models.GmlSchema:
+def read(name: str, version: str, schema_location: Optional[str] = None) -> types.GmlSchema:
     """Loads a dictionary schema into memory for use in validation"""
 
     schema_location = schema_location or os.getenv(
@@ -73,5 +73,5 @@ def read(name: str, version: str, schema_location: Optional[str] = None) -> mode
             f"Dictionary schema not found at {target_schema}, you can generate it using the generat command"
         )
 
-    resource_file = resources.File[models.GmlSchema](str(target_schema))
+    resource_file = resources.File[types.GmlSchema](str(target_schema))
     return resource_file.read()

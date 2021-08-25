@@ -3,7 +3,7 @@ from pathlib import Path
 import pkg_resources
 import pytest
 
-from psqlgml import dictionary, models, schema
+from psqlgml import dictionary, schema, types
 from tests.helpers import SchemaInfo
 
 
@@ -26,7 +26,7 @@ def local_schema(local_dictionary: dictionary.Dictionary, tmpdir: Path) -> Schem
 
 
 @pytest.fixture()
-def test_schema(local_schema: SchemaInfo) -> models.GmlSchema:
+def test_schema(local_schema: SchemaInfo) -> types.GmlSchema:
     return schema.read(
         name=local_schema.name,
         version=local_schema.version,

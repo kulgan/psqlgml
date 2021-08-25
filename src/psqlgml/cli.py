@@ -9,7 +9,7 @@ import yaml
 from psqlgml import VERSION
 from psqlgml import dictionary as d
 from psqlgml import schema, validators, visualization
-from psqlgml.typings import RenderFormat, ValidatorType
+from psqlgml.types import RenderFormat, ValidatorType
 
 logger: logging.Logger
 
@@ -78,7 +78,7 @@ def schema_gen(
     logger.debug(f"Generating psqlgml schema for {dictionary} Dictionary")
 
     loaded_dictionary = d.load(
-        version=version, name=name, git_path=dictionary, schema_path=schema_path, overwrite=force
+        version=version, name=name, git_url=dictionary, schema_path=schema_path, overwrite=force
     )
     schema_file = schema.generate(
         loaded_dictionary=loaded_dictionary,
