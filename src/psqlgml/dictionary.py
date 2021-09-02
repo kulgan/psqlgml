@@ -9,6 +9,14 @@ import yaml
 from jsonschema import RefResolver
 
 from psqlgml import repository, types, typings
+from psqlgml.types import DictionarySchema
+
+__all__ = [
+    "Association",
+    "Dictionary",
+    "load",
+    "from_object",
+]
 
 logger = logging.getLogger(__name__)
 
@@ -23,63 +31,6 @@ DEFAULT_DEFINITIONS: FrozenSet[str] = frozenset(
 
 T = TypeVar("T")
 RESOLVERS: Dict[str, "Resolver"] = {}
-
-
-@attr.s(auto_attribs=True)
-class Schema:
-    raw: types.DictionarySchema
-
-    @property
-    def id(self) -> str:
-        return self.raw["id"]
-
-    @property
-    def title(self) -> str:
-        return self.raw["title"]
-
-    @property
-    def namespace(self) -> str:
-        return self.raw["namespace"]
-
-    @property
-    def category(self) -> types.Category:
-        return self.raw["category"]
-
-    @property
-    def submittable(self) -> bool:
-        return self.raw["submittable"]
-
-    @property
-    def downloadable(self) -> bool:
-        return self.raw["downloadable"]
-
-    @property
-    def previous_version_downloadable(self) -> bool:
-        return self.raw["previous_version_downloadable"]
-
-    @property
-    def description(self) -> str:
-        return self.raw["description"]
-
-    @property
-    def system_properties(self) -> List[str]:
-        return self.raw["systemProperties"]
-
-    @property
-    def links(self) -> List[types.SubGroupedLink]:
-        return self.raw.get("links") or []
-
-    @property
-    def required(self) -> List[str]:
-        return self.raw["required"]
-
-    @property
-    def unique_keys(self) -> List[List[str]]:
-        return self.raw["uniqueKeys"]
-
-    @property
-    def properties(self) -> Dict[str, Any]:
-        return self.raw["properties"]
 
 
 @attr.s(auto_attribs=True)
@@ -130,9 +81,18 @@ def extract_association(src: str, link: types.SubGroupedLink) -> Set[Association
 
 @attr.s(auto_attribs=True, frozen=True, hash=True)
 class Dictionary:
+    """Data Dictionary instance representation
+
+    Fields:
+        name: name or label of the dictionary
+        version: version number of the dictionary
+        schema: node label, schema collection/mapping
+        url: location of the dictionary
+    """
+
     name: str
     version: str
-    schema: Dict[str, Schema] = attr.ib(hash=False)
+    schema: Dict[str, DictionarySchema] = attr.ib(hash=False)
     url: Optional[str] = None
 
     @property
@@ -165,10 +125,10 @@ def load_schemas(
     schema_path: str,
     meta_schema: str = DEFAULT_META_SCHEMA,
     definitions: FrozenSet[str] = DEFAULT_DEFINITIONS,
-) -> Dict[str, Schema]:
+) -> Dict[str, DictionarySchema]:
 
     excludes: FrozenSet[str] = frozenset([meta_schema] + list(definitions))
-    raw_schemas: List[types.DictionarySchema] = []
+    raw_schemas: List[types.DictionarySchemaDict] = []
 
     definitions_paths = Path(schema_path)
     for definition in definitions_paths.iterdir():
@@ -179,7 +139,7 @@ def load_schemas(
         schema = load_yaml(definition)
         RESOLVERS[path] = Resolver(name=path, schema=schema)
         if path not in excludes:
-            raw_schemas.append(cast(types.DictionarySchema, schema))
+            raw_schemas.append(cast(types.DictionarySchemaDict, schema))
 
     return _load_schema(raw_schemas)
 
@@ -218,13 +178,13 @@ def resolve_ref(reference: str, resolver: Optional[Resolver] = None) -> Any:
     return resolver.resolve(reference)
 
 
-def _load_schema(schemas: List[types.DictionarySchema]) -> Dict[str, Schema]:
-    loaded: Dict[str, Schema] = {}
+def _load_schema(schemas: List[types.DictionarySchemaDict]) -> Dict[str, DictionarySchema]:
+    loaded: Dict[str, DictionarySchema] = {}
     for schema in schemas:
         logger.debug(f"Resolving dictionary schema with id: {schema['id']}")
 
-        raw: types.DictionarySchema = resolve_schema(schema)
-        loaded[schema["id"]] = Schema(raw=raw)
+        raw: types.DictionarySchemaDict = resolve_schema(schema)
+        loaded[schema["id"]] = DictionarySchema(raw=raw)
 
         logger.debug(f"Schema resolution complete for schema id: {schema['id']}")
     return loaded
@@ -288,7 +248,9 @@ def load_local(
     return Dictionary(name=name, version=version, schema=s, url=str(directory))
 
 
-def from_object(schema: Dict[str, types.DictionarySchema], name: str, version: str) -> Dictionary:
+def from_object(
+    schema: Dict[str, types.DictionarySchemaDict], name: str, version: str
+) -> Dictionary:
     """Loads a dictionary from a traditional dictionary object loaded using a compliant gdcdictionary
 
     Args:
@@ -298,8 +260,8 @@ def from_object(schema: Dict[str, types.DictionarySchema], name: str, version: s
     Returns:
         A Dictionary instance
     """
-    revised_schema: Dict[str, Schema] = {}
+    revised_schema: Dict[str, DictionarySchema] = {}
 
     for label, s in schema.items():
-        revised_schema[label] = Schema(raw=s)
+        revised_schema[label] = DictionarySchema(raw=s)
     return Dictionary(schema=revised_schema, name=name, version=version)

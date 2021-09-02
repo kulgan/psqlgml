@@ -5,6 +5,13 @@ from pathlib import Path
 import attr
 from dulwich import objects, porcelain
 
+__all__ = [
+    "checkout",
+    "clone",
+    "RepoMeta",
+    "RepoCheckout",
+]
+
 logger = logging.getLogger(__name__)
 
 

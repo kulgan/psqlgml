@@ -14,14 +14,14 @@ class SchemaInfo:
     source_dir: str
 
 
-def _load_dictionary(name: str) -> Dict[str, types.DictionarySchema]:
+def _load_dictionary(name: str) -> Dict[str, types.DictionarySchemaDict]:
     with pkg_resources.resource_stream(__name__, name) as f:
-        return cast(types.DictionarySchema, yaml.safe_load(f))
+        return cast(types.DictionarySchemaDict, yaml.safe_load(f))
 
 
 class Dictionary:
     def __init__(self, name) -> None:
-        self.schema: Dict[str, types.DictionarySchema] = _load_dictionary(name)
+        self.schema: Dict[str, types.DictionarySchemaDict] = _load_dictionary(name)
 
 
 MiniDictionary = Dictionary("data/dictionary/mini.yaml")

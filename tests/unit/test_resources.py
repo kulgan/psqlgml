@@ -8,7 +8,7 @@ JSON_PAYLOAD = "simple_valid.json"
 
 def test_merge_resource(data_dir):
 
-    merged = r.merge(data_dir, JSON_PAYLOAD)
+    merged = r.load_resource(data_dir, JSON_PAYLOAD)
     assert "extends" not in merged
 
     nodes = merged["nodes"]
@@ -19,7 +19,7 @@ def test_merge_resource(data_dir):
 
 
 def test_load_all(data_dir):
-    payloads: Dict[str, GmlData] = r.load_all(data_dir, JSON_PAYLOAD)
+    payloads: Dict[str, GmlData] = r.load_by_resource(data_dir, JSON_PAYLOAD)
     assert len(payloads) == 2
     sources = [JSON_PAYLOAD, "simple_valid.yaml"]
     for source in sources:

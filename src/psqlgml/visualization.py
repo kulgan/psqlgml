@@ -6,7 +6,9 @@ from functools import lru_cache
 from graphviz import Digraph
 
 import psqlgml.types
-from psqlgml import resources, typings
+from psqlgml import resources
+
+__all__ = ["draw"]
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +20,7 @@ def draw(
     output_format: psqlgml.types.RenderFormat = "png",
     show_rendered: bool = False,
 ) -> None:
-    graph = resources.merge(data_dir, data_file)
+    graph = resources.load_resource(data_dir, data_file)
 
     output_name = data_file.split(".")[0]
     unique_field: psqlgml.types.UniqueFieldType = graph.get("unique_field", "submitter_id")

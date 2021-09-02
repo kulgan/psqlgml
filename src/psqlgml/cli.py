@@ -1,6 +1,7 @@
 import logging
 import sys
 from logging.config import dictConfig
+from typing import List
 
 import attr
 import click
@@ -10,6 +11,8 @@ from psqlgml import VERSION
 from psqlgml import dictionary as d
 from psqlgml import schema, validators, visualization
 from psqlgml.types import RenderFormat, ValidatorType
+
+__all__: List[str] = []
 
 logger: logging.Logger
 

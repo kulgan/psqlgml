@@ -50,7 +50,6 @@ setup(
     zip_safe=True,
     include_package_data=True,
     python_requires=">=3.6",
-    setup_requires=["setuptools_scm"],
     install_requires=[
         "attrs",
         "click",

@@ -8,6 +8,20 @@ from jsonschema import Draft7Validator
 import psqlgml.types
 from psqlgml import dictionary, resources, types, typings
 
+__all__ = [
+    "AssociationValidator",
+    "DataViolation",
+    "DuplicateDefinitionValidator",
+    "SchemaValidator",
+    "UndefinedLinkValidator",
+    "validate",
+    "Validator",
+    "ValidatorFactory",
+    "ValidationRequest",
+    "ViolationErrorType",
+    "ViolationType",
+]
+
 SCHEMA: Dict[str, Draft7Validator] = {}
 ViolationType = typings.Literal[
     "Link Association Violation",
@@ -30,7 +44,7 @@ class ValidationRequest:
     @property
     def payload(self) -> Dict[str, types.GmlData]:
         if not self._payload:
-            self._payload = resources.load_all(self.data_dir, self.data_file)
+            self._payload = resources.load_by_resource(self.data_dir, self.data_file)
         return self._payload
 
 

@@ -9,6 +9,11 @@ import yaml
 
 from psqlgml import dictionary, resources, types
 
+__all__ = [
+    "generate",
+    "read",
+]
+
 logger = logging.getLogger(__name__)
 env = j.Environment(
     loader=j.PackageLoader("psqlgml"),
@@ -73,5 +78,5 @@ def read(name: str, version: str, schema_location: Optional[str] = None) -> type
             f"Dictionary schema not found at {target_schema}, you can generate it using the generat command"
         )
 
-    resource_file = resources.File[types.GmlSchema](str(target_schema))
+    resource_file = resources.ResourceFile[types.GmlSchema](str(target_schema))
     return resource_file.read()

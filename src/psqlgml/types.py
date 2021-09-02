@@ -1,7 +1,23 @@
 from typing import Any, Dict, List, Union
 
+import attr
+
 from psqlgml import typings
 from psqlgml.typings import Literal, TypedDict
+
+__all__ = [
+    "Category",
+    "GmlData",
+    "GmlEdge",
+    "GmlNode",
+    "GmlSchema",
+    "RenderFormat",
+    "DictionarySchema",
+    "DictionarySchemaDict",
+    "SystemAnnotation",
+    "UniqueFieldType",
+    "ValidatorType",
+]
 
 Category = typings.Literal[
     "administrative",
@@ -18,6 +34,8 @@ Category = typings.Literal[
     "TBD",
 ]
 UniqueFieldType = Literal["node_id", "submitter_id"]
+ValidatorType = Literal["ALL", "DATA", "SCHEMA"]
+RenderFormat = Literal["jpeg", "pdf", "png"]
 
 
 class GmlSchemaProperties(TypedDict):
@@ -30,6 +48,8 @@ class GmlSchemaProperties(TypedDict):
 
 
 class GmlSchema(TypedDict):
+    """GraphML schema container"""
+
     definitions: Dict[str, Dict[str, Any]]
     description: str
     properties: GmlSchemaProperties
@@ -70,7 +90,7 @@ class GmlNode(TypedDict, total=False):
     label: str
     props: Dict[str, Union[bool, int, str]]
     properties: Dict[str, Union[bool, int, str]]
-    sysans: SystemAnnotation
+    sysan: SystemAnnotation
     system_annotations: SystemAnnotation
 
 
@@ -100,7 +120,7 @@ class SubGroupedLink(Link, total=False):
     subgroup: List[Link]
 
 
-class DictionarySchema(typings.TypedDict):
+class DictionarySchemaDict(typings.TypedDict):
     """A dictionary representation of an actual node data structure schema definition"""
 
     id: str
@@ -119,5 +139,58 @@ class DictionarySchema(typings.TypedDict):
     uniqueKeys: List[List[str]]
 
 
-ValidatorType = Literal["ALL", "DATA", "SCHEMA"]
-RenderFormat = Literal["jpeg", "pdf", "png"]
+@attr.s(auto_attribs=True)
+class DictionarySchema:
+    raw: DictionarySchemaDict
+
+    @property
+    def id(self) -> str:
+        return self.raw["id"]
+
+    @property
+    def title(self) -> str:
+        return self.raw["title"]
+
+    @property
+    def namespace(self) -> str:
+        return self.raw["namespace"]
+
+    @property
+    def category(self) -> Category:
+        return self.raw["category"]
+
+    @property
+    def submittable(self) -> bool:
+        return self.raw["submittable"]
+
+    @property
+    def downloadable(self) -> bool:
+        return self.raw["downloadable"]
+
+    @property
+    def previous_version_downloadable(self) -> bool:
+        return self.raw["previous_version_downloadable"]
+
+    @property
+    def description(self) -> str:
+        return self.raw["description"]
+
+    @property
+    def system_properties(self) -> List[str]:
+        return self.raw["systemProperties"]
+
+    @property
+    def links(self) -> List[SubGroupedLink]:
+        return self.raw.get("links") or []
+
+    @property
+    def required(self) -> List[str]:
+        return self.raw["required"]
+
+    @property
+    def unique_keys(self) -> List[List[str]]:
+        return self.raw["uniqueKeys"]
+
+    @property
+    def properties(self) -> Dict[str, Any]:
+        return self.raw["properties"]
