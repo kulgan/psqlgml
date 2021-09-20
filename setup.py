@@ -42,8 +42,6 @@ setup(
     package_data={
         "psqlgml": [
             "py.typed",
-            "schema/*.json",
-            "schema/*.yaml",
         ]
     },
     classifiers=classifiers,

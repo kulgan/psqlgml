@@ -134,9 +134,12 @@ class DictionarySchemaDict(typings.TypedDict):
     links: List[SubGroupedLink]
     properties: Dict[str, Any]
     required: List[str]
+    program: str
+    project: str
     systemProperties: List[str]
     tagProperties: List[str]
     uniqueKeys: List[List[str]]
+    validator: str
 
 
 @attr.s(auto_attribs=True)

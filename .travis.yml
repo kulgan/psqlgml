@@ -24,7 +24,7 @@ jobs:
       install:
         - pip install tox-travis
       script:
-        - tox -e static
+        - tox -e lint
 #    - name: Python 3.7 - OSX
 #      os: osx
 #      osx_image: xcode11.7
