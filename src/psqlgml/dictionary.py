@@ -15,6 +15,7 @@ __all__ = [
     "Association",
     "Dictionary",
     "load",
+    "load_local",
     "from_object",
 ]
 

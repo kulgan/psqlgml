@@ -139,7 +139,7 @@ class DictionarySchemaDict(typings.TypedDict):
     systemProperties: List[str]
     tagProperties: List[str]
     uniqueKeys: List[List[str]]
-    validator: str
+    validators: str
 
 
 @attr.s(auto_attribs=True)
