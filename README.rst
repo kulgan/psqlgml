@@ -6,12 +6,6 @@ Sample data generation is a common step used for testing and verifying new and e
 
 Sample data graphs are represented using a customized GraphML_ format which can be represented in either json or yaml files. This projects provides tools for creating this schema based on selected dictionary and validating data that is targeting this schema.
 
-Quick Intro
------------
-.. raw:: html
-
-    <a href="https://asciinema.org/a/xKFFNqQb6LrQrtGKEDYTCPSI3?speed=2"><img src="https://asciinema.org/a/xKFFNqQb6LrQrtGKEDYTCPSI3.svg" /></a>
-
 GML Schema
 ----------
 This is a customized GraphML_ format based on JSON schema. It allows graphs to be represented as a set of nodes and edges. The schema makes it possible to validate a sample data.
