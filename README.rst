@@ -1,6 +1,6 @@
 Data Commons Graph Mocking Tools
 ================================
-|ci|
+|ci| |action|
 
 Sample data generation is a common step used for testing and verifying new and existing features that make use of the data commons dictionary. Without validation tools, this step can be super hard and prone to errors. This project aims to provide tooling that helps with generating and visualizing sample data. It is dictionary agnostic, so should work for any given gdc compatible dictionary.
 
@@ -85,5 +85,8 @@ Raises an error whenever an edge exists between nodes that the dictionary does n
 .. |ci| image:: https://app.travis-ci.com/NCI-GDC/psqlgml.svg?token=5s3bZRahNJnkspYEMwZC&branch=master
     :target: https://app.travis-ci.com/github/NCI-GDC/psqlgml/branches
     :alt: build
+.. |action| image:: https://img.shields.io/github/workflow/status/kulgan/psqlgml/psqlgml-ci
+    :target: https://github.com/kulgan/psqlgml/actions
+    :alt: psqlgml ci
 .. _graphviz: https://graphviz.org/
 .. _GraphML: http://graphml.graphdrawing.org/primer/graphml-primer.html
