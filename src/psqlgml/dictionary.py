@@ -99,7 +99,7 @@ class Dictionary:
     @property
     def links(self) -> Set[str]:
         all_links: Set[str] = set()
-        for label in self.schema:  # type: str
+        for label in self.schema:
             associations = self.associations(label)
             all_links.update([assoc.label for assoc in associations])
         return all_links

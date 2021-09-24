@@ -31,3 +31,13 @@ repos:
     rev: '3.9.2'
     hooks:
       - id: flake8
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.9.0
+    hooks:
+      - id: python-use-type-annotations
+  - repo: https://github.com/Lucas-C/pre-commit-hooks-markup
+    rev: v1.0.1
+    hooks:
+      - id: rst-linter
+        args:
+          - --allow-raw

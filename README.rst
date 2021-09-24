@@ -23,7 +23,9 @@ This is a customized GraphML_ format based on JSON schema. It allows graphs to b
       - src: p_1
         dst: pr_1
         label: programs
+
 This example creats two nodes ``Program`` and ``Project`` that are linked together using the ``node_id`` property. The name of the edge connecting them is ``programs``
+
 
 Requirements
 ------------
@@ -32,28 +34,29 @@ Requirements
 
 Installation
 ------------
-Install directly from github, replace ``x.x.x`` with the latest version
+Install from pypi
 
 .. code-block:: bash
 
-    $ pip install git+ssh://git@github.com/NCI-GDC/psqlgml.git@x.x.x#egg=psqlgml
+    $ pip install psqlgml.git
 
 Schema Generation
 -----------------
-psqlgml can be used to generate dictionary specific schemas using exposed command line scripts. By default, gdcdictionary is assumed but parameters can be updated to work with a different project.
+psqlgml can be used to generate dictionary specific schemas using exposed command line scripts. By default, gdcdictionary_ is assumed but parameters can be updated to work with a different project.
 
 Generate schema using version 2.4.0 of the gdcdictionary
 
 .. code-block::
 
     psqlgml generate -v 2.4.0 -n gdcdictionary
+
 The generated schema can be used for validating sample data. It can also be added to IDEs like PyCharm for intellisense while creating sample data.
 
 Sample Data Validation
 ----------------------
 .. code-block::
 
-    $ psqlgml validate -f sample.yaml --data-dir <folder container all other samples> -d <dictionary name> -v <dictionary version>
+    $ psqlgml validate -f sample.yaml --data-dir <resource dir> -d <dictionary name> -v <dictionary version>
 
 The following validations are currently supported:
 
@@ -90,3 +93,4 @@ Raises an error whenever an edge exists between nodes that the dictionary does n
     :alt: psqlgml ci
 .. _graphviz: https://graphviz.org/
 .. _GraphML: http://graphml.graphdrawing.org/primer/graphml-primer.html
+.. _gdcdictionary: https://github.com/NCI-GDC/gdcdictionoary
