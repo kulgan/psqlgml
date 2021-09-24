@@ -1,6 +1,6 @@
 Data Commons Graph Mocking Tools
 ================================
-|ci| |action|
+|ci|
 
 Sample data generation is a common step used for testing and verifying new and existing features that make use of the data commons dictionary. Without validation tools, this step can be super hard and prone to errors. This project aims to provide tooling that helps with generating and visualizing sample data. It is dictionary agnostic, so should work for any given gdc compatible dictionary.
 
