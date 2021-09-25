@@ -1,10 +1,64 @@
-Data Commons Graph Mocking Tools
-================================
 |ci|
 
+Summary
+-------
 Sample data generation is a common step used for testing and verifying new and existing features that make use of the data commons dictionary. Without validation tools, this step can be super hard and prone to errors. This project aims to provide tooling that helps with generating and visualizing sample data. It is dictionary agnostic, so should work for any given gdc compatible dictionary.
 
 Sample data graphs are represented using a customized GraphML_ format which can be represented in either json or yaml files. This projects provides tools for creating this schema based on selected dictionary and validating data that is targeting this schema.
+
+Goals
+-----
+psqlgml aims to provide the following for projects that makes use of psqlgraph_:
+
+1. test data validation and visualization
+2. test data schema that can be integrated with IDE's for easier test data generation
+3. randomized test data generation based on user requirements
+4. provide data structures and functions for use in external projects
+5. provide alternate implementation for loading dictionary with better type checking
+
+Requirements
+------------
+* Python3.6+
+* graphviz_ (used for visualization)
+
+Installation
+------------
+from pypi
+
+.. code-block:: bash
+
+    $ pip install psqlgml
+
+Quick Start
+-----------
+Command Line
+++++++++++++
+.. code-block:: bash
+
+    # install
+    $ pip install psqlgml
+
+    # validate install
+    $ psqlgml --help
+
+    # generate internal schema to aid validation
+    $ psqlgml generate -v 2.4.0 -n test_dictionary
+
+    # validation
+    $ psqlgml validate --help
+
+    # visualize
+    $ psqlgml visualize --help
+
+API
++++
+.. code-block:: python
+
+    import psqlgml
+
+    # load the default dictionary
+    dictionary: psqlgml.Dictionary = psqlgml.load(version="2.3.0")
+
 
 GML Schema
 ----------
@@ -25,20 +79,6 @@ This is a customized GraphML_ format based on JSON schema. It allows graphs to b
         label: programs
 
 This example creats two nodes ``Program`` and ``Project`` that are linked together using the ``node_id`` property. The name of the edge connecting them is ``programs``
-
-
-Requirements
-------------
-* Python3.6+
-* graphviz_ (for visualization)
-
-Installation
-------------
-Install from pypi
-
-.. code-block:: bash
-
-    $ pip install psqlgml.git
 
 Schema Generation
 -----------------
@@ -93,4 +133,5 @@ Raises an error whenever an edge exists between nodes that the dictionary does n
     :alt: psqlgml ci
 .. _graphviz: https://graphviz.org/
 .. _GraphML: http://graphml.graphdrawing.org/primer/graphml-primer.html
-.. _gdcdictionary: https://github.com/NCI-GDC/gdcdictionoary
+.. _gdcdictionary: https://github.com/NCI-GDC/gdcdictionary
+.. _psqlgraph: https://github.com/NCI-GDC/psqlgraph

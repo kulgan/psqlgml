@@ -32,3 +32,11 @@ disallow_untyped_calls = false
 strict_optional = true
 no_implicit_optional = true
 check_untyped_defs = true
+
+[tool.towncrier]
+package = "psqlgml"
+package_dir = "src"
+filename = "docs/changelog.rst"
+directory = "changelog"
+issue_format = "`#{issue} <https://github.com/kulgan/psqlgml/issues/{issue}>`_"
+underlines = ["-", "^"]
