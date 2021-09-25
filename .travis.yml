@@ -42,6 +42,7 @@ jobs:
 #      script: tox -e py36
 
 install:
+  - pip install --upgrade virtualenv
   - pip install tox-travis
 
 script:
