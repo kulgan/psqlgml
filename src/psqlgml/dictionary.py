@@ -59,6 +59,7 @@ class Association:
     src: str
     dst: str
     label: str
+    is_reference: bool = False
 
 
 def extract_association(src: str, link: types.SubGroupedLink) -> Set[Association]:
@@ -72,7 +73,7 @@ def extract_association(src: str, link: types.SubGroupedLink) -> Set[Association
             label = current["name"]
             backref = current["backref"]
             associations.add(Association(src, dst, label))
-            associations.add(Association(dst, src, backref))
+            associations.add(Association(dst, src, backref, True))
         if "subgroup" in current:
             for sub in current["subgroup"]:
                 links.append(cast(types.SubGroupedLink, sub))

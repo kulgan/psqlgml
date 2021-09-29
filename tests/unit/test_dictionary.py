@@ -33,9 +33,11 @@ def test_association__instance() -> None:
     a1 = dictionary.Association("src", "dst", "link1")
     a2 = dictionary.Association("src", "dst", "link1")
     a3 = dictionary.Association("src", "dst", "link2")
+    a4 = dictionary.Association("src", "dst", "link2", True)
 
     assert a1 == a2
     assert a1 != a3
+    assert a3 != a4
 
 
 def test_from_objects() -> None:
