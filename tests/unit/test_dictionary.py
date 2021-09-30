@@ -36,7 +36,7 @@ def test_association__instance() -> None:
     a1 = dictionary.Association("src", "dst", "member_of", "link1")
     a2 = dictionary.Association("src", "dst", "member_of", "link1")
     a3 = dictionary.Association("src", "dst", "member_of", "link2")
-    a4 = dictionary.Association("src", "dst", "member_of", "link2", True)
+    a4 = dictionary.Association("src", "dst", "member_of", "link2", is_reference=True)
 
     assert a1 == a2
     assert a1 != a3
