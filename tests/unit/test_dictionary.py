@@ -1,8 +1,11 @@
 from unittest import mock
 
+import pytest
+
 from psqlgml import dictionary
 from tests import helpers
 
+pytestmark = [pytest.mark.dictionary]
 REMOTE_GIT_URL = "https://github.com/NCI-GDC/gdcdictionary.git"
 META = {
     "id": "test",
@@ -30,10 +33,10 @@ def test_dictionary(local_dictionary) -> None:
 
 
 def test_association__instance() -> None:
-    a1 = dictionary.Association("src", "dst", "link1")
-    a2 = dictionary.Association("src", "dst", "link1")
-    a3 = dictionary.Association("src", "dst", "link2")
-    a4 = dictionary.Association("src", "dst", "link2", True)
+    a1 = dictionary.Association("src", "dst", "member_of", "link1")
+    a2 = dictionary.Association("src", "dst", "member_of", "link1")
+    a3 = dictionary.Association("src", "dst", "member_of", "link2")
+    a4 = dictionary.Association("src", "dst", "member_of", "link2", True)
 
     assert a1 == a2
     assert a1 != a3

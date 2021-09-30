@@ -56,9 +56,20 @@ class Resolver:
 
 @attr.s(auto_attribs=True, frozen=True)
 class Association:
+    """An edge between two node types
+
+    Fields:
+        src: label for source node type
+        dst: label for destination node type
+        label: label for this edge, eg member_of
+        name: A unique name for the edge
+        is_reference: True if it is a backref
+    """
+
     src: str
     dst: str
     label: str
+    name: str
     is_reference: bool = False
 
 
@@ -70,10 +81,11 @@ def extract_association(src: str, link: types.SubGroupedLink) -> Set[Association
         current = links.pop()
         if "name" in current:
             dst = current["target_type"]
-            label = current["name"]
+            label = current["label"]
+            name = current["name"]
             backref = current["backref"]
-            associations.add(Association(src, dst, label))
-            associations.add(Association(dst, src, backref, True))
+            associations.add(Association(src, dst, label, name))
+            associations.add(Association(dst, src, "", backref, True))
         if "subgroup" in current:
             for sub in current["subgroup"]:
                 links.append(cast(types.SubGroupedLink, sub))
@@ -102,7 +114,7 @@ class Dictionary:
         all_links: Set[str] = set()
         for label in self.schema:
             associations = self.associations(label)
-            all_links.update([assoc.label for assoc in associations])
+            all_links.update([assoc.name for assoc in associations])
         return all_links
 
     @lru_cache()
