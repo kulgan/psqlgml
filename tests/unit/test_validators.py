@@ -4,6 +4,8 @@ import pytest
 
 from psqlgml import dictionary, types, typings, validators
 
+pytestmark = [pytest.mark.validation]
+
 
 class CreateValidationRequest(typings.Protocol):
     def __call__(self, data_file: str) -> validators.ValidationRequest:

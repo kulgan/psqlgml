@@ -217,7 +217,7 @@ class AssociationValidator(Validator):
                     message = f"node type {src_label} cannot be linked to {dst_label} "
                     sub_violations.add(self.report_violation(str_path, message))
                 # validate edge label
-                if edge_label and not [assoc for assoc in filtered if assoc.label == edge_label]:
+                if edge_label and not [assoc for assoc in filtered if assoc.name == edge_label]:
                     message = (
                         f"Invalid edge name {edge_label} for edge {src_label} -> {dst_label} "
                     )
