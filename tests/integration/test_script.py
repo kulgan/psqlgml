@@ -10,10 +10,10 @@ from PIL import Image
 from pkg_resources import get_distribution
 
 import psqlgml
-import psqlgml.types
-from psqlgml import cli, typings
+from psqlgml import cli
 from tests.helpers import SchemaInfo
 
+pytestmark = [pytest.mark.slow, pytest.mark.dictionary]
 VERSION = get_distribution(psqlgml.__name__).version
 REMOTE_GIT_URL = "https://github.com/NCI-GDC/gdcdictionary.git"
 
