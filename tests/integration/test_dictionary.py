@@ -4,6 +4,7 @@ import pytest
 
 from psqlgml import dictionary, repository
 
+pytestmark = [pytest.mark.slow, pytest.mark.dictionary]
 REMOTE_GIT_URL = "https://github.com/NCI-GDC/gdcdictionary.git"
 
 

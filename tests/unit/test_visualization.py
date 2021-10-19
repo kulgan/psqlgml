@@ -4,7 +4,7 @@ import pytest
 from PIL import Image
 
 import psqlgml.types
-from psqlgml import typings, visualization
+from psqlgml import visualization
 
 
 @pytest.mark.parametrize("render_format", ["png", "jpeg", "pdf"])

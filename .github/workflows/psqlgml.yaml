@@ -2,7 +2,6 @@ name: psqlgml-ci
 
 on:
   - push
-  - pull_request
 jobs:
   tests:
     runs-on: ubuntu-18.04
@@ -24,7 +23,7 @@ jobs:
           sudo apt install -y graphviz
           pip install tox
       - name: tests
-        run: tox -e py
+        run: tox -e py -- -k "not slow"
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -40,7 +39,7 @@ jobs:
         run: tox -e lint
   publish:
     needs: [ tests, lint ]
-    if: github.event_name == 'pushX' && contains(github.ref, 'refs/tags/') # disabled for now
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/') # disabled for now
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

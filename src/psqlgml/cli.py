@@ -116,7 +116,7 @@ def schema_gen(
 )
 @click.option("--data-dir", type=click.Path(exists=True))
 @click.option("-f", "--data-file", type=str, required=True, help="The file to validate")
-@app.command(name="validate")
+@app.command(name="validate", help="Perform validation on resource files")
 def validate_file(
     version: str,
     data_file: str,
@@ -159,7 +159,7 @@ def validate_file(
 )
 @click.option("-f", "--data-file", type=str, required=True, help="The file to visualize")
 @click.option("-s", "--show/--no-show", is_flag=True, default=True)
-@app.command(name="visualize")
+@app.command(name="visualize", help="Visualize a resource file using graphviz")
 def visualize_data(
     output_dir: str, data_dir: str, data_file: str, output_format: RenderFormat, show: bool
 ) -> None:
