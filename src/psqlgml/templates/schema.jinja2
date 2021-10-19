@@ -67,7 +67,7 @@
             {% if info.enum %}
               "enum": [
               {% for enum in info.enum | sort %}
-                "{{ enum }}"{%+ if not loop.last +%},{%+ endif +%}
+                "{{ enum }}"{% if not loop.last %},{% endif %}
               {% endfor %}
               ],
             {% endif %}
@@ -75,7 +75,7 @@
               "default": "{{ info.default|e }}",
             {% endif %}
               "description": "{{ info.description | trim }}"
-            }{%+ if not loop.last +%},{%+ endif +%}
+            }{% if not loop.last %},{% endif %}
           {% endfor %}
           }
         },
@@ -90,7 +90,7 @@
           {% if info.enum %}
             "enum": [
             {% for enum in info.enum | sort %}
-              "{{ enum }}"{%+ if not loop.last +%},{%+ endif +%}
+              "{{ enum }}"{% if not loop.last %},{% endif %}
             {% endfor %}
             ],
           {% endif %}
@@ -98,7 +98,7 @@
             "default": "{{ info.default|e }}",
           {% endif %}
             "description": "{{ info.description | trim }}"
-          }{%+ if not loop.last +%},{%+ endif +%}
+          }{% if not loop.last %},{% endif %}
         {% endfor %}
       }
     },
@@ -126,7 +126,7 @@
         "label": {
           "enum": [
             {% for link in links | sort %}
-            "{{ link }}"{%+ if not loop.last +%},{%+ endif +%}
+            "{{ link }}"{% if not loop.last %},{% endif %}
             {% endfor %}
           ]
         }
@@ -162,7 +162,7 @@
         {% for label, _ in schema | dictsort %}
         "{{ label }}": {
           "type": "integer"
-         }{%+ if not loop.last +%},{%+ endif +%}
+         }{% if not loop.last %},{% endif %}
        {% endfor %}
       }
     },
@@ -181,7 +181,7 @@
          {% for node, _ in schema | dictsort %}
           {
             "$ref": "#/definitions/{{ node }}"
-          }{%+ if not loop.last +%},{%+ endif +%}
+          }{% if not loop.last %},{% endif %}
          {% endfor %}
         ]
       }
