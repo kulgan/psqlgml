@@ -1,17 +1,12 @@
 import abc
 import logging
 import os
-
 from pathlib import Path
 from typing import Optional
 
 from psqlgml.dictionaries import repo, schemas
 
-__all__ = [
-    "load",
-    "load_local",
-    "DictionaryReader"
-]
+__all__ = ["load", "load_local", "DictionaryReader"]
 
 logger = logging.getLogger(__name__)
 GML_DICTIONARIES_HOME = Path(os.getenv("GML_DICTIONARY_HOME", f"{Path.home()}/.gml/dictionaries"))

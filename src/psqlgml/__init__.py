@@ -1,7 +1,7 @@
 from pkg_resources import get_distribution
 
-from psqlgml.dictionaries.schemas import Association, Dictionary, from_object
 from psqlgml.dictionaries.readers import DictionaryReader, load, load_local
+from psqlgml.dictionaries.schemas import Association, Dictionary, from_object
 from psqlgml.resources import ResourceFile, load_by_resource, load_resource
 from psqlgml.schema import generate
 from psqlgml.schema import read as read_schema

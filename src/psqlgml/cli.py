@@ -78,9 +78,7 @@ def schema_gen(
     logger.debug(f"Generating psqlgml schema for {dictionary} Dictionary")
 
     reader = psqlgml.DictionaryReader(name, version).git_repo(
-        url=dictionary,
-        schema_path=schema_path,
-        overwrite=force
+        url=dictionary, schema_path=schema_path, overwrite=force
     )
     loaded_dictionary = reader.read()
     schema_file = psqlgml.generate(
@@ -161,7 +159,11 @@ def validate_file(
 @click.option("-s", "--show/--no-show", is_flag=True, default=True)
 @app.command(name="visualize", help="Visualize a resource file using graphviz")
 def visualize_data(
-    output_dir: str, data_dir: str, data_file: str, output_format: psqlgml.RenderFormat, show: bool
+    output_dir: str,
+    data_dir: str,
+    data_file: str,
+    output_format: psqlgml.RenderFormat,
+    show: bool,
 ) -> None:
 
     psqlgml.draw(data_dir, data_file, output_dir, output_format, show_rendered=show)
