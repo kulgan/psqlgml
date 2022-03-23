@@ -2,7 +2,8 @@ from typing import Callable, Set
 
 import pytest
 
-from psqlgml import dictionary, types, typings, validators
+from psqlgml import types, typings, validators
+from psqlgml.dictionaries import schemas
 
 pytestmark = [pytest.mark.validation]
 
@@ -14,7 +15,7 @@ class CreateValidationRequest(typings.Protocol):
 
 @pytest.fixture()
 def validation_request(
-    data_dir: str, local_dictionary: dictionary.Dictionary, test_schema: types.GmlSchema
+    data_dir: str, local_dictionary: schemas.Dictionary, test_schema: types.GmlSchema
 ) -> Callable[[str], validators.ValidationRequest]:
     def create_request(data_file: str) -> validators.ValidationRequest:
         return validators.ValidationRequest(

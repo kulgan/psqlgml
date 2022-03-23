@@ -8,14 +8,12 @@ import attr
 import yaml
 from jsonschema import RefResolver
 
-from psqlgml import repository, types, typings
+from psqlgml import types, typings
 from psqlgml.types import DictionarySchema
 
 __all__ = [
     "Association",
     "Dictionary",
-    "load",
-    "load_local",
     "from_object",
 ]
 
@@ -203,64 +201,6 @@ def _load_schema(schemas: List[types.DictionarySchemaDict]) -> Dict[str, Diction
 
         logger.debug(f"Schema resolution complete for schema id: {schema['id']}")
     return loaded
-
-
-def load(
-    version: str,
-    overwrite: bool = False,
-    name: str = "gdcdictionary",
-    schema_path: str = "gdcdictionary/schemas",
-    git_url: str = "https://github.com/NCI-GDC/gdcdictionary.git",
-) -> Dictionary:
-    """Downloads and loads a dictionary instance based on the input parameters
-
-    Args:
-        version: dictionary version number
-        overwrite: force a re-download of the dictionary files, defaults to false
-        name: name/label used to save the dictionary locally, defaults to gdcdictionary
-        schema_path: path to the dictionary files with the dictionary git repository
-        git_url: URL to the git repository
-    Returns:
-        A Dictionary instance
-    """
-
-    local_dictionary = load_local(name, version) if not overwrite else None
-    if local_dictionary:
-        return local_dictionary
-
-    logger.info(f"Attempting to read dictionary from location {git_url}")
-    repo = repository.RepoMeta(remote_git_url=git_url, name=name)
-    checkout_command = repository.RepoCheckout(
-        repo=repo, path=schema_path, commit=version, override=overwrite
-    )
-    checkout_dir = repository.checkout(checkout_command)
-
-    logger.info(f"loading dictionary from {checkout_dir}")
-    loaded_schema = load_schemas(checkout_dir, DEFAULT_META_SCHEMA, DEFAULT_DEFINITIONS)
-    return Dictionary(url=git_url, name=name, version=version, schema=loaded_schema)
-
-
-def load_local(
-    name: str, version: str, dictionary_location: Optional[str] = None
-) -> Optional[Dictionary]:
-    """Attempts to load a previously downloaded dictionary from a local location
-
-    Args:
-        name: name/label used to save the dictionary locally
-        version: version number of the saved dictionary
-        dictionary_location: base directory where all dictionaries are dumped
-    Returns:
-        A Dictionary instance if dictionary files were proviously downloaded, else None
-    """
-    dict_home = os.getenv("GML_DICTIONARY_HOME", f"{Path.home()}/.gml/dictionaries")
-    dictionary_location = dictionary_location or dict_home
-    directory = Path(f"{dictionary_location}/{name}/{version}")
-    if not directory.exists():
-        logger.info(f"No local copy of dictionary with name: {name}, version: {version} found")
-        return None
-    logger.info(f"Attempting to load dictionary from local path {directory}")
-    s = load_schemas(str(directory), DEFAULT_META_SCHEMA, DEFAULT_DEFINITIONS)
-    return Dictionary(name=name, version=version, schema=s, url=str(directory))
 
 
 def from_object(

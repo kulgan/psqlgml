@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from unittest import mock
 
-from psqlgml import repository
+from psqlgml.dictionaries import repo
 
 REMOTE_GIT_URL = "https://github.com/NCI-GDC/gdcdictionary.git"
 

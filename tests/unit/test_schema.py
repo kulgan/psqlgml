@@ -4,11 +4,12 @@ from pathlib import Path
 import pytest
 import yaml
 
-from psqlgml import dictionary, schema
+from psqlgml import schema
+from psqlgml.dictionaries import schemas
 from tests.helpers import SchemaInfo
 
 
-def test_generate(local_dictionary: dictionary.Dictionary, tmpdir: Path) -> None:
+def test_generate(local_dictionary: schemas.Dictionary, tmpdir: Path) -> None:
     output_location = f"{tmpdir}"
     schema.generate(
         output_location=output_location,
