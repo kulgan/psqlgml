@@ -1,7 +1,7 @@
 import logging
 import os
 from pathlib import Path
-from typing import Optional
+from typing import Optional, cast
 
 from psqlgml.dictionaries import repository, schemas
 
@@ -56,7 +56,7 @@ class DictionaryReader:
             )
         return repository.GitRepository(
             name=self.name,
-            url=self._url,
+            url=cast(str, self._url),
             schema_path=self._schema_path,
             force=self._overwrite,
             is_tag=self._is_tag,

@@ -2,6 +2,7 @@ import abc
 import logging
 import os
 from pathlib import Path
+from typing import Optional
 
 import attr
 from dulwich import objects, porcelain
@@ -30,7 +31,7 @@ class Repository(abc.ABC):
 
 @attr.s(auto_attribs=True)
 class LocalRepository(Repository):
-    base_directory: Path = None
+    base_directory: Optional[Path] = None
 
     def get_dictionary_directory(self, version: str) -> Path:
         base_dir = self.base_directory or Path(
