@@ -1,74 +1,13 @@
-import abc
 import logging
 import os
 from pathlib import Path
 from typing import Optional
 
-from psqlgml.dictionaries import repo, schemas
+from psqlgml.dictionaries import repository, schemas
 
 __all__ = ["load", "load_local", "DictionaryReader"]
 
 logger = logging.getLogger(__name__)
-GML_DICTIONARIES_HOME = Path(os.getenv("GML_DICTIONARY_HOME", f"{Path.home()}/.gml/dictionaries"))
-
-
-if not GML_DICTIONARIES_HOME.exists():
-    GML_DICTIONARIES_HOME.mkdir(parents=True, exist_ok=True)
-
-
-class SchemaReader(abc.ABC):
-    """Abstract reader for reading GDC compliant dictionaries"""
-
-    def __init__(self, name: str, version: str) -> None:
-        self.name = name
-        self.version = version
-
-    @abc.abstractmethod
-    def read(self) -> schemas.Dictionary:
-        """Read Dictionary based on specific requirements"""
-
-
-class LocalReader(SchemaReader):
-    """Builder for local dictionary schema data"""
-
-    def __init__(self, name: str, version: str, local_dir: Optional[Path] = None) -> None:
-        super().__init__(name, version)
-        self.local_dir = local_dir or GML_DICTIONARIES_HOME
-
-    def read(self) -> schemas.Dictionary:
-        """Read dictionary from a local directory"""
-
-        dict_path = Path(f"{self.local_dir}/{self.name}/{self.version}")
-
-        if not dict_path.exists():
-            logger.info(
-                f"No local dictionary with name: {self.name}, version: {self.version} found"
-            )
-            raise IOError("No local dictionary found")
-
-        return schemas.Dictionary(
-            name=self.name,
-            version=self.version,
-            url=str(dict_path),
-            schema=schemas.load_schemas(str(dict_path)),
-        )
-
-
-class GitReader(SchemaReader):
-    """Builder for reading dictionary schema from git repository"""
-
-    def __init__(self, checkout: repo.RepoCheckout) -> None:
-        super().__init__(checkout.repo.name, checkout.commit)
-        self.cmd = checkout
-
-    def read(self) -> schemas.Dictionary:
-        dict_path = repo.checkout(self.cmd)
-        return schemas.Dictionary(
-            url=self.cmd.repo.remote_git_url,
-            name=self.name,
-            version=self.version,
-            schema=schemas.load_schemas(dict_path),
-        )
 
 
 class DictionaryReader:
@@ -76,29 +15,52 @@ class DictionaryReader:
         self.name = name
         self.version = version
 
-        self._git_cmd: Optional[repo.RepoCheckout] = None
-        self.reader: Optional[SchemaReader] = None
-
-    def local_dir(self, dir_path: Path) -> "DictionaryReader":
-        self.reader = LocalReader(
-            name=self.name,
-            version=self.version,
-            local_dir=dir_path,
+        self._url: Optional[str] = None
+        self._is_tag: bool = True
+        self._overwrite: bool = False
+        self._schema_path: str = "gdcdictionary/schemas"
+        self._base_dir: Path = Path(
+            os.getenv("GML_DICTIONARY_HOME", f"{Path.home()}/.gml/dictionaries")
         )
+
+        self.reader: Optional[repository.Repository] = None
+
+    def local(self, base_directory: Optional[Path] = None) -> "DictionaryReader":
+        logger.debug(f"Reading local Dictionary {self.name}: {self.version} @ {base_directory}")
+        self._base_dir = base_directory or self._base_dir
         return self
 
-    def git_repo(
-        self, url: str, overwrite: bool, schema_path: str = "gdcdictionary/schemas"
+    def git(
+        self,
+        url: str,
+        overwrite: bool,
+        schema_path: str = "gdcdictionary/schemas",
+        is_tag: bool = True,
     ) -> "DictionaryReader":
-        meta = repo.RepoMeta(remote_git_url=url, name=self.name)
-        co_cmd = repo.RepoCheckout(
-            repo=meta, path=schema_path, commit=self.version, override=overwrite
-        )
-        self.reader = GitReader(checkout=co_cmd)
+        logger.debug(f"Reading remote Dictionary {self.name}: {self.version} @ {url}")
+
+        self._url = url
+        self._is_tag = is_tag
+        self._overwrite = overwrite
+        self._schema_path = schema_path
         return self
+
+    def is_preloaded_dictionary(self) -> bool:
+        """Checks if a dictionary with name and version has been previously loaded"""
+        return Path(f"{self._base_dir}/{self.name}/{self.version}").exists()
 
     def read(self) -> schemas.Dictionary:
-        return self.reader.read()
+        if self.is_preloaded_dictionary() and not self._overwrite:
+            return repository.LocalRepository(name=self.name, base_directory=self._base_dir).read(
+                self.version
+            )
+        return repository.GitRepository(
+            name=self.name,
+            url=self._url,
+            schema_path=self._schema_path,
+            force=self._overwrite,
+            is_tag=self._is_tag,
+        ).read(self.version)
 
 
 def load_local(
@@ -113,7 +75,8 @@ def load_local(
     Returns:
         A Dictionary instance if dictionary files were previously downloaded, else None
     """
-    return DictionaryReader(name, version).local_dir(Path(dictionary_location)).read()
+    base_path = Path(dictionary_location) if dictionary_location else None
+    return DictionaryReader(name, version).local(base_path).read()
 
 
 def load(
@@ -122,6 +85,7 @@ def load(
     name: str = "gdcdictionary",
     schema_path: str = "gdcdictionary/schemas",
     git_url: str = "https://github.com/NCI-GDC/gdcdictionary.git",
+    is_tag: bool = True,
 ) -> schemas.Dictionary:
     """Downloads and loads a dictionary instance based on the input parameters
 
@@ -131,14 +95,16 @@ def load(
         name: name/label used to save the dictionary locally, defaults to gdcdictionary
         schema_path: path to the dictionary files with the dictionary git repository
         git_url: URL to the git repository
+        is_tag: tag or commit
     Returns:
         A Dictionary instance
     """
 
     return (
         DictionaryReader(name, version)
-        .git_repo(
+        .git(
             url=git_url,
+            is_tag=is_tag,
             overwrite=overwrite,
             schema_path=schema_path,
         )

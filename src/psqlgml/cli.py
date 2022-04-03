@@ -69,20 +69,35 @@ def app() -> None:
     is_flag=True,
     help="Force regeneration if already exists",
 )
+@click.option(
+    "-t",
+    "--tag/--no-tag",
+    type=bool,
+    default=True,
+    is_flag=True,
+    help="True if specified version is a tag, defaults to True",
+)
 @app.command(name="generate")
 def schema_gen(
-    dictionary: str, output_dir: str, version: str, name: str, schema_path: str, force: bool
+    dictionary: str,
+    output_dir: str,
+    version: str,
+    name: str,
+    schema_path: str,
+    force: bool,
+    tag: bool,
 ) -> None:
     """Generate schema for specified dictionary"""
     global logger
     logger.debug(f"Generating psqlgml schema for {dictionary} Dictionary")
 
-    reader = psqlgml.DictionaryReader(name, version).git_repo(
-        url=dictionary, schema_path=schema_path, overwrite=force
+    current_dictionary = (
+        psqlgml.DictionaryReader(name, version)
+        .git(url=dictionary, schema_path=schema_path, overwrite=force, is_tag=tag)
+        .read()
     )
-    loaded_dictionary = reader.read()
     schema_file = psqlgml.generate(
-        loaded_dictionary=loaded_dictionary,
+        loaded_dictionary=current_dictionary,
         output_location=output_dir,
     )
     logging.info(f"schema generation completed successfully: {schema_file}")
