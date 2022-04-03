@@ -2,7 +2,7 @@ from unittest import mock
 
 import pytest
 
-from psqlgml import dictionary
+from psqlgml.dictionaries import schemas
 from tests import helpers
 
 pytestmark = [pytest.mark.dictionary]
@@ -16,13 +16,13 @@ META = {
 DUMMY_SCHEMA = {"$ref": "_meta.yaml#/properties"}
 
 
-def test_schema_resolution(local_dictionary: dictionary.Dictionary) -> None:
+def test_schema_resolution(local_dictionary: schemas.Dictionary) -> None:
     assert local_dictionary.schema
 
 
-@mock.patch.dict(dictionary.RESOLVERS, {"_meta.yaml": dictionary.Resolver("_meta.yaml", META)})
+@mock.patch.dict(schemas.RESOLVERS, {"_meta.yaml": schemas.Resolver("_meta.yaml", META)})
 def test_resolvers():
-    resolved = dictionary.resolve_schema(DUMMY_SCHEMA)
+    resolved = schemas.resolve_schema(DUMMY_SCHEMA)
     assert "name" in resolved
     assert "age" in resolved
 
@@ -33,10 +33,10 @@ def test_dictionary(local_dictionary) -> None:
 
 
 def test_association__instance() -> None:
-    a1 = dictionary.Association("src", "dst", "member_of", "link1")
-    a2 = dictionary.Association("src", "dst", "member_of", "link1")
-    a3 = dictionary.Association("src", "dst", "member_of", "link2")
-    a4 = dictionary.Association("src", "dst", "member_of", "link2", is_reference=True)
+    a1 = schemas.Association("src", "dst", "member_of", "link1")
+    a2 = schemas.Association("src", "dst", "member_of", "link1")
+    a3 = schemas.Association("src", "dst", "member_of", "link2")
+    a4 = schemas.Association("src", "dst", "member_of", "link2", is_reference=True)
 
     assert a1 == a2
     assert a1 != a3
@@ -45,6 +45,6 @@ def test_association__instance() -> None:
 
 def test_from_objects() -> None:
 
-    d = dictionary.from_object(helpers.MiniDictionary.schema, name="mini", version="1.0.0")
+    d = schemas.from_object(helpers.MiniDictionary.schema, name="mini", version="1.0.0")
     assert {"cases", "projects", "portions", "samples", "centers", "programs"} == d.links
     assert len(d.schema) == 6

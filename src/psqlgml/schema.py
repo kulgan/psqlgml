@@ -7,7 +7,8 @@ from typing import Optional
 import jinja2 as j
 import yaml
 
-from psqlgml import dictionary, resources, types
+from psqlgml import resources, types
+from psqlgml.dictionaries import schemas
 
 __all__ = [
     "generate",
@@ -24,7 +25,7 @@ env = j.Environment(
 
 
 def generate(
-    loaded_dictionary: dictionary.Dictionary,
+    loaded_dictionary: schemas.Dictionary,
     output_location: Optional[str] = None,
     template_name: str = "schema.jinja2",
 ) -> str:

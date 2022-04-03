@@ -5,8 +5,8 @@ import attr
 import colored
 from jsonschema import Draft7Validator
 
-import psqlgml.types
-from psqlgml import dictionary, resources, types, typings
+from psqlgml import resources, types, typings
+from psqlgml.dictionaries import schemas
 
 __all__ = [
     "AssociationValidator",
@@ -37,7 +37,7 @@ class ValidationRequest:
     data_dir: str
     data_file: str
     schema: types.GmlSchema
-    dictionary: dictionary.Dictionary
+    dictionary: schemas.Dictionary
 
     _payload: Dict[str, types.GmlData] = attr.ib(default=None)
 
@@ -72,7 +72,7 @@ class Validator(metaclass=ABCMeta):
         ...
 
     @property
-    def dictionary(self) -> dictionary.Dictionary:
+    def dictionary(self) -> schemas.Dictionary:
         return self.request.dictionary
 
     def report_violation(
@@ -240,7 +240,7 @@ class ValidatorFactory:
         v = validator_type(request=self.request)
         self.validators.append(v)
 
-    def register_validator_type(self, validator_type: psqlgml.types.ValidatorType) -> None:
+    def register_validator_type(self, validator_type: types.ValidatorType) -> None:
         validators = VALIDATORS[validator_type]
         for validator in validators:
             self.register_validator(validator)
@@ -274,7 +274,7 @@ VALIDATORS: Dict[str, Iterable[Type[Validator]]] = {
 
 def validate(
     request: ValidationRequest,
-    validator: psqlgml.types.ValidatorType = "ALL",
+    validator: types.ValidatorType = "ALL",
     print_error: bool = False,
 ) -> Dict[str, Set[DataViolation]]:
     register_defaults = True if validator == "ALL" else False
@@ -292,7 +292,7 @@ def validate(
     return violations
 
 
-def print_violations(violations: Dict[str, Set[DataViolation]], d: dictionary.Dictionary) -> None:
+def print_violations(violations: Dict[str, Set[DataViolation]], d: schemas.Dictionary) -> None:
     for resource_file, sub_violations in violations.items():
         clr = "red" if sub_violations else "green"
         print(

@@ -7,10 +7,7 @@ import attr
 import click
 import yaml
 
-from psqlgml import VERSION
-from psqlgml import dictionary as d
-from psqlgml import schema, validators, visualization
-from psqlgml.types import RenderFormat, ValidatorType
+import psqlgml
 
 __all__: List[str] = []
 
@@ -23,7 +20,7 @@ class LoggingConfig:
 
 
 @click.group()
-@click.version_option(VERSION)
+@click.version_option(psqlgml.VERSION)
 def app() -> None:
     """psqlgml script for generating, validating and viewing graph data"""
     global logger
@@ -72,19 +69,35 @@ def app() -> None:
     is_flag=True,
     help="Force regeneration if already exists",
 )
+@click.option(
+    "-t",
+    "--tag/--no-tag",
+    type=bool,
+    default=True,
+    is_flag=True,
+    help="True if specified version is a tag, defaults to True",
+)
 @app.command(name="generate")
 def schema_gen(
-    dictionary: str, output_dir: str, version: str, name: str, schema_path: str, force: bool
+    dictionary: str,
+    output_dir: str,
+    version: str,
+    name: str,
+    schema_path: str,
+    force: bool,
+    tag: bool,
 ) -> None:
     """Generate schema for specified dictionary"""
     global logger
     logger.debug(f"Generating psqlgml schema for {dictionary} Dictionary")
 
-    loaded_dictionary = d.load(
-        version=version, name=name, git_url=dictionary, schema_path=schema_path, overwrite=force
+    current_dictionary = (
+        psqlgml.DictionaryReader(name, version)
+        .git(url=dictionary, schema_path=schema_path, overwrite=force, is_tag=tag)
+        .read()
     )
-    schema_file = schema.generate(
-        loaded_dictionary=loaded_dictionary,
+    schema_file = psqlgml.generate(
+        loaded_dictionary=current_dictionary,
         output_location=output_dir,
     )
     logging.info(f"schema generation completed successfully: {schema_file}")
@@ -122,17 +135,17 @@ def validate_file(
     data_file: str,
     dictionary: str,
     data_dir: str,
-    validator: ValidatorType,
+    validator: psqlgml.ValidatorType,
 ) -> None:
     global logger
     logger.debug(f"running {validator} validators for {data_dir}/{data_file}")
 
-    gml_schema = schema.read(dictionary, version)
-    loaded = d.load(name=dictionary, version=version)
-    request = validators.ValidationRequest(
+    gml_schema = psqlgml.read_schema(dictionary, version)
+    loaded = psqlgml.load(name=dictionary, version=version)
+    request = psqlgml.ValidationRequest(
         data_file=data_file, data_dir=data_dir, schema=gml_schema, dictionary=loaded
     )
-    validators.validate(
+    psqlgml.validate(
         request=request,
         validator=validator,
         print_error=True,
@@ -161,10 +174,14 @@ def validate_file(
 @click.option("-s", "--show/--no-show", is_flag=True, default=True)
 @app.command(name="visualize", help="Visualize a resource file using graphviz")
 def visualize_data(
-    output_dir: str, data_dir: str, data_file: str, output_format: RenderFormat, show: bool
+    output_dir: str,
+    data_dir: str,
+    data_file: str,
+    output_format: psqlgml.RenderFormat,
+    show: bool,
 ) -> None:
 
-    visualization.draw(data_dir, data_file, output_dir, output_format, show_rendered=show)
+    psqlgml.draw(data_dir, data_file, output_dir, output_format, show_rendered=show)
 
 
 def configure_logger(cfg: LoggingConfig) -> None:
