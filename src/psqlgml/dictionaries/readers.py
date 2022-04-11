@@ -1,7 +1,7 @@
 import logging
 import os
 from pathlib import Path
-from typing import Optional, cast
+from typing import Optional, Union, cast
 
 from psqlgml.dictionaries import repository, schemas
 
@@ -25,7 +25,10 @@ class DictionaryReader:
 
         self.reader: Optional[repository.Repository] = None
 
-    def local(self, base_directory: Optional[Path] = None) -> "DictionaryReader":
+    def local(self, base_directory: Optional[Union[str, Path]] = None) -> "DictionaryReader":
+        base_directory = (
+            Path(base_directory) if isinstance(base_directory, str) else base_directory
+        )
         logger.debug(f"Reading local Dictionary {self.name}: {self.version} @ {base_directory}")
         self._base_dir = base_directory or self._base_dir
         return self

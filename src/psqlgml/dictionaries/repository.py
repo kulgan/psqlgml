@@ -26,7 +26,6 @@ class Repository(abc.ABC):
     @abc.abstractmethod
     def read(self, version: str) -> schemas.Dictionary:
         """Reads the specified dictionary version from the repository"""
-        ...
 
 
 @attr.s(auto_attribs=True)
@@ -129,7 +128,6 @@ class GitRepository(Repository):
             return obj.id
         if isinstance(obj, objects.Tag):
             return obj.object[1]
-        raise ValueError(f"Unrecognized commit {commit_ref}")
 
     def clone(self) -> None:
 
