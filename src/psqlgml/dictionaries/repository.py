@@ -128,6 +128,7 @@ class GitRepository(Repository):
             return obj.id
         if isinstance(obj, objects.Tag):
             return obj.object[1]
+        raise IOError(f"unknown commit type for ref {commit_ref}")
 
     def clone(self) -> None:
 
