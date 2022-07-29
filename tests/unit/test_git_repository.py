@@ -42,7 +42,7 @@ def test_get_local_git_dir(local_git_home: str) -> None:
 
         repo = repository.GitRepository(name="dictionary", url=REMOTE_GIT_URL, lazy_load=True)
         assert repo.name == "dictionary"
-        assert Path(f"{local_git_home}/dictionary") == repo.local_directory
+        assert Path(f"{local_git_home}/dictionary/master") == repo.local_directory
 
 
 def test_lazy_load_no_clone(tmpdir: Path) -> None:

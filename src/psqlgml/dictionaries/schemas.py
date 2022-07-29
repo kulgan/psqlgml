@@ -1,5 +1,4 @@
 import logging
-import os
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, FrozenSet, List, Optional, Set, TypeVar, cast
@@ -21,11 +20,7 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_META_SCHEMA: typings.Final[str] = "metaschema.yaml"
 DEFAULT_DEFINITIONS: FrozenSet[str] = frozenset(
-    [
-        "_definitions.yaml",
-        "_terms.yaml",
-        "_terms_enum.yaml",
-    ]
+    ["_definitions.yaml", "_terms.yaml", "_terms_enum.yaml", "_settings.yaml"]
 )
 
 T = TypeVar("T")
@@ -194,6 +189,10 @@ def resolve_ref(reference: str, resolver: Optional[Resolver] = None) -> Any:
 def _load_schema(schemas: List[types.DictionarySchemaDict]) -> Dict[str, DictionarySchema]:
     loaded: Dict[str, DictionarySchema] = {}
     for schema in schemas:
+        if "id" not in schema:
+            logger.info("Skipping definition without an id entry")
+            continue
+
         logger.debug(f"Resolving dictionary schema with id: {schema['id']}")
 
         raw: types.DictionarySchemaDict = resolve_schema(schema)

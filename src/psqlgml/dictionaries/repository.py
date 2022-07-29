@@ -63,6 +63,8 @@ class GitRepository(Repository):
     schema_path: str = "gdcdictionary/schemas"
     repo: porcelain.BaseRepo = None
     lazy_load: bool = False
+    default_version: str = "master"
+    _version: Optional[str] = None
 
     def __attrs_post_init__(self) -> None:
         if not self.lazy_load:
@@ -70,14 +72,15 @@ class GitRepository(Repository):
 
     @property
     def local_directory(self) -> Path:
+        version = self._version or self.default_version
         git_home = os.getenv("GML_GIT_HOME", f"{Path.home()}/.gml/git")
-        local_dir = Path(f"{git_home}/{self.name}")
+        local_dir = Path(f"{git_home}/{self.name}/{version}")
         local_dir.mkdir(parents=True, exist_ok=True)
         return local_dir
 
     @property
     def is_cloned(self) -> bool:
-        return os.path.exists("{}/.git".format(self.local_directory))
+        return os.path.exists(f"{self.local_directory}/.git")
 
     def get_commit_ref(self, version: str) -> str:
         if self.is_tag:
@@ -85,6 +88,7 @@ class GitRepository(Repository):
         return f"refs/remotes/{self.origin.decode()}/{version}"
 
     def read(self, version: str) -> schemas.Dictionary:
+        self._version = version
         self.clone()
 
         commit_id = self.get_commit_id(self.get_commit_ref(version))
