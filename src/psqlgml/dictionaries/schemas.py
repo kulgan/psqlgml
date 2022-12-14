@@ -1,4 +1,5 @@
 import logging
+import pathlib
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, FrozenSet, List, Optional, Set, TypeVar, cast
@@ -129,6 +130,11 @@ def load_yaml(path: Path) -> Dict[str, Any]:
         return yaml.safe_load(f)
 
 
+def is_not_yaml_file_extension(file_name: str) -> bool:
+    extension = pathlib.Path(file_name).suffix
+    return extension.lower() not in ["yml", "yaml"]
+
+
 def load_schemas(
     schema_path: str,
     meta_schema: str = DEFAULT_META_SCHEMA,
@@ -140,7 +146,12 @@ def load_schemas(
 
     definitions_paths = Path(schema_path)
     for definition in definitions_paths.iterdir():
-        if definition.is_dir() or definition.name == "README.md":
+        # skip non yaml files and directories
+        if (
+            definition.is_dir()
+            or definition.name == "README.md"
+            or is_not_yaml_file_extension(definition.name)
+        ):
             continue
 
         path = definition.name
