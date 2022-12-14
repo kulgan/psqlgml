@@ -132,7 +132,6 @@ def load_yaml(path: Path) -> Dict[str, Any]:
 
 def is_not_yaml_file_extension(file_name: str) -> bool:
     extension = pathlib.Path(file_name).suffix
-    print(file_name, extension)
     return extension.lower() not in [".yml", ".yaml"]
 
 
