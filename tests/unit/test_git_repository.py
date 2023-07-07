@@ -22,7 +22,6 @@ def test_get_dictionary_dir(data_dir: str, default_base: str, expectation) -> No
 
     gml_dir = f"{Path.home()}/.gml/dictionaries" if default_base else data_dir
     with mock.patch.dict(os.environ, {"GML_DICTIONARY_HOME": gml_dir}):
-
         repo = repository.GitRepository(name="dictionary", url=REMOTE_GIT_URL, lazy_load=True)
         assert repo.name == "dictionary"
         assert Path(expectation) == repo.get_dictionary_directory("0.1.0")
@@ -39,7 +38,6 @@ def test_get_local_git_dir(local_git_home: str) -> None:
     """Tests dictionary directory is set properly with and without env variables"""
 
     with mock.patch.dict(os.environ, {"GML_GIT_HOME": local_git_home}):
-
         repo = repository.GitRepository(name="dictionary", url=REMOTE_GIT_URL, lazy_load=True)
         assert repo.name == "dictionary"
         assert Path(f"{local_git_home}/dictionary/master") == repo.local_directory

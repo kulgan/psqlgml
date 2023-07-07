@@ -44,7 +44,6 @@ def test_association__instance() -> None:
 
 
 def test_from_objects() -> None:
-
     d = schemas.from_object(helpers.MiniDictionary.schema, name="mini", version="1.0.0")
     assert {"cases", "projects", "portions", "samples", "centers", "programs"} == d.links
     assert len(d.schema) == 6

@@ -180,7 +180,6 @@ def visualize_data(
     output_format: psqlgml.RenderFormat,
     show: bool,
 ) -> None:
-
     psqlgml.draw(data_dir, data_file, output_dir, output_format, show_rendered=show)
 
 

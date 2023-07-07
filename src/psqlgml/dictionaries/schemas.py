@@ -140,7 +140,6 @@ def load_schemas(
     meta_schema: str = DEFAULT_META_SCHEMA,
     definitions: FrozenSet[str] = DEFAULT_DEFINITIONS,
 ) -> Dict[str, DictionarySchema]:
-
     excludes: FrozenSet[str] = frozenset([meta_schema] + list(definitions))
     raw_schemas: List[types.DictionarySchemaDict] = []
 
@@ -164,7 +163,6 @@ def load_schemas(
 
 
 def resolve_schema(entry: T, resolver: Optional[Resolver] = None) -> T:
-
     # unit entries
     if not isinstance(entry, (list, dict)):
         return entry
