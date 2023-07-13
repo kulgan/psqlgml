@@ -109,7 +109,6 @@ class GitRepository(Repository):
 
         # dump schema files to dump location
         for entry in commit_tree.items():
-
             file_name = entry.path.decode()
             blob = self.repo.get_object(entry.sha)
 
@@ -136,7 +135,6 @@ class GitRepository(Repository):
         raise ValueError(f"Unrecognized commit {commit_ref}")
 
     def clone(self) -> None:
-
         if self.repo:
             return
 

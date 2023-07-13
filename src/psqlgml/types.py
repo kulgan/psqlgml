@@ -188,7 +188,7 @@ class DictionarySchema:
 
     @property
     def required(self) -> List[str]:
-        return self.raw["required"]
+        return self.raw.get("required") or []
 
     @property
     def unique_keys(self) -> List[List[str]]:

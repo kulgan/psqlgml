@@ -7,7 +7,6 @@ JSON_PAYLOAD = "simple_valid.json"
 
 
 def test_merge_resource(data_dir):
-
     merged = r.load_resource(data_dir, JSON_PAYLOAD)
     assert "extends" not in merged
 

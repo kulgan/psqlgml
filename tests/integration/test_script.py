@@ -49,7 +49,6 @@ def test_schema_generate(cli_runner: CliRunner, version: str, tmpdir: Path) -> N
 
 
 def test_schema_generate_local(cli_runner: CliRunner, data_dir: str, tmpdir: Path) -> None:
-
     name = "dictionary"
 
     with mock.patch.dict(os.environ, {"GML_DICTIONARY_HOME": data_dir}):

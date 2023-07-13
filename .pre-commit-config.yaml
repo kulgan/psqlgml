@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    rev: v4.4.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -8,11 +8,11 @@ repos:
         args: [--remove]
       - id: check-yaml
   - repo: https://github.com/psf/black
-    rev: 22.3.0
+    rev: 23.3.0
     hooks:
       - id: black
   - repo: https://github.com/pycqa/isort
-    rev: 5.10.1
+    rev: 5.12.0
     hooks:
       - id: isort
         name: isort (python)
@@ -23,16 +23,16 @@ repos:
         name: isort (pyi)
         types: [ pyi ]
   - repo: https://github.com/Yelp/detect-secrets
-    rev: v1.2.0
+    rev: v1.4.0
     hooks:
       - id: detect-secrets
         args: [ '--baseline', '.secrets.baseline' ]
   - repo: https://github.com/pycqa/flake8
-    rev: 4.0.1
+    rev: 6.0.0
     hooks:
       - id: flake8
   - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.9.0
+    rev: v1.10.0
     hooks:
       - id: python-use-type-annotations
   - repo: https://github.com/Lucas-C/pre-commit-hooks-markup

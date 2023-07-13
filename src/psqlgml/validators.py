@@ -105,7 +105,6 @@ class SchemaValidator(Validator):
         return SCHEMA[self.dictionary_tag]
 
     def validate_schema(self, obj: types.GmlData) -> Set[DataViolation]:
-
         violations: Set[DataViolation] = set()
         for e in self.validator.iter_errors(obj):
             str_path = ".".join([str(entry) for entry in e.path])
@@ -113,7 +112,6 @@ class SchemaValidator(Validator):
         return violations
 
     def validate(self) -> Dict[str, Set[DataViolation]]:
-
         payload = self.request.payload
         violations: Dict[str, Set[DataViolation]] = {}
 
@@ -201,7 +199,6 @@ class AssociationValidator(Validator):
                 node_types[unique_id] = node["label"]
 
         for resource, schema in payload.items():
-
             sub_violations: Set[DataViolation] = set()
             for index, edge in enumerate(schema["edges"]):
                 src = edge["src"]

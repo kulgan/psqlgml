@@ -24,7 +24,6 @@ def test_get_local_dictionary_dir(data_dir: str, default_base: bool, expectation
 
 
 def test_load_local_dictionary(data_dir: str) -> None:
-
     base_dir = Path(data_dir)
     repo = repository.LocalRepository(name="dictionary", base_directory=base_dir)
     dictionary = repo.read("0.1.0")
@@ -34,7 +33,6 @@ def test_load_local_dictionary(data_dir: str) -> None:
 
 
 def test_load_invalid_local_dictionary(data_dir: str) -> None:
-
     base_dir = Path(data_dir)
     repo = repository.LocalRepository(name="dictionary", base_directory=base_dir)
     with pytest.raises(IOError) as exc_info:
